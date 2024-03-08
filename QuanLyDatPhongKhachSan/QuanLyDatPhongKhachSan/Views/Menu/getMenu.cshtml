@@ -1,0 +1,7 @@
+﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.menu>
+<ul class="navbar-nav ml-auto">
+    @foreach (var i in Model)
+    {
+        <li class="nav-item"><a href="/@i.meta" class="nav-link"> @i.name</a></li>
+    }
+</ul>

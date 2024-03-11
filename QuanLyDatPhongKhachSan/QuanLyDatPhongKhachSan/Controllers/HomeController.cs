@@ -10,15 +10,6 @@ namespace QuanLyDatPhongKhachSan.Controllers
     public class HomeController : Controller
     {
 
-        BookingHotel1Entities1 _db = new BookingHotel1Entities1();
-
-        public ActionResult getRandomRoom()
-        {
-            var v = (from t in _db.rooms
-                     orderby Guid.NewGuid()
-                     select t).Take(6);
-            return PartialView(v.ToList());
-        }
         public ActionResult Index()
         {
             return View();

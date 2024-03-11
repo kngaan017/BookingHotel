@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
@@ -331,8 +332,8 @@
     <Content Include="Views\Room\RoomDetail.cshtml" />
     <Content Include="Views\Blog\BlogDetail.cshtml" />
     <Content Include="Views\Menu\getMenu.cshtml" />
-    <Content Include="Views\Home\getRandomRoom.cshtml" />
-    <Content Include="Views\Room\getRoom.cshtml" />
+    <Content Include="Views\Default\getRandomRoom.cshtml" />
+    <Content Include="Views\Default\getRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

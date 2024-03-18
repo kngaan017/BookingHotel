@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyDatPhongKhachSan.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +14,14 @@ namespace QuanLyDatPhongKhachSan.Controllers
             return View();
         }
         // GET: Blog
-        public ActionResult BlogDetail()
+        BookingHotel1Entities1 _db = new BookingHotel1Entities1();
+
+        public ActionResult BlogDetail(long id)
         {
-            return View();
+            var v = from t in _db.blogs
+                    where t.blogID == id
+                    select t;
+            return View(v.FirstOrDefault());
         }
     }
 }

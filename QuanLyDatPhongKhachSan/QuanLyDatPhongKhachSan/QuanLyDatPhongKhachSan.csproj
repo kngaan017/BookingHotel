@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\ajax-loader.gif" />
+    <Content Include="Content\css\all.min.css" />
     <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\aos.css" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
@@ -195,12 +197,14 @@
     <Content Include="Content\css\open-iconic-bootstrap.min.css" />
     <Content Include="Content\css\owl.carousel.min.css" />
     <Content Include="Content\css\owl.theme.default.min.css" />
+    <Content Include="Content\css\sb-admin-2.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\flaticon\font\flaticon.css" />
     <Content Include="Content\fonts\flaticon\font\flaticon.html" />
     <Content Include="Content\fonts\flaticon\font\Flaticon.svg" />
     <Content Include="Content\fonts\icomoon\icomoon.svg" />
     <Content Include="Content\images\about.jpg" />
+    <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\bg_1.jpg" />
     <Content Include="Content\images\bg_2.jpg" />
     <Content Include="Content\images\image_1.jpg" />
@@ -311,6 +315,7 @@
     <Content Include="Scripts\js\range.js" />
     <Content Include="Scripts\js\scrollax.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Views\Account\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -332,8 +337,10 @@
     <Content Include="Views\Room\RoomDetail.cshtml" />
     <Content Include="Views\Blog\BlogDetail.cshtml" />
     <Content Include="Views\Menu\getMenu.cshtml" />
-    <Content Include="Views\Default\getRandomRoom.cshtml" />
     <Content Include="Views\Default\getRoom.cshtml" />
+    <Content Include="Views\Default\getBlog.cshtml" />
+    <Content Include="Views\Room\Booking.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

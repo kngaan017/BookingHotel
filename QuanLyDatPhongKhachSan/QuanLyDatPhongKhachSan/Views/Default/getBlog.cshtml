@@ -1,0 +1,17 @@
+﻿@model List<QuanLyDatPhongKhachSan.Models.blog>
+@foreach(var i in Model) { 
+    <div class="col-md-3 d-flex ftco-animate">
+        <div class="blog-entry align-self-stretch">
+            <a href="/@ViewBag.meta/@i.meta/@i.blogID" class="block-20" style="background-image: url('../Content/images/@i.img');">
+            </a>
+            <div class="text mt-3 d-block">
+                <h3 class="heading mt-3"><a href="#">@i.title</a></h3>
+                <div class="meta mb-3">
+                    <div><a href="#">@i.publishDate</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

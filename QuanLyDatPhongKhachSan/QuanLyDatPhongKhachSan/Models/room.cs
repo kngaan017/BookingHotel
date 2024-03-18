@@ -25,7 +25,9 @@ namespace QuanLyDatPhongKhachSan.Models
         public string type { get; set; }
         public Nullable<double> price { get; set; }
         public string size { get; set; }
-        public string img { get; set; }
+        public string img1 { get; set; }
+        public string img2 { get; set; }
+        public string img3 { get; set; }
         public string description { get; set; }
         public string view { get; set; }
         public Nullable<int> bed { get; set; }

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.room>
+﻿@model List<QuanLyDatPhongKhachSan.Models.room>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
 
 <section class="home-slider owl-carousel">
@@ -40,7 +40,7 @@
             <div class="col-lg-12">
                 <form action="#" class="booking-form">
                     <div class="row">
-                        <div class="col-md-3 d-flex">
+                        <div class="col-md-3 d-flex justify-content-center">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Check-in Date</label>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 d-flex">
+                        <div class="col-md-3 d-flex justify-content-center">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Check-out Date</label>
@@ -56,33 +56,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md d-flex">
+                        <div class="col-md-3 d-flex justify-content-center">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Room</label>
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            @*<select name="" id="" class="form-control">
-                                                @foreach (var i in Model)
-                                                {
-                                                    <option value="">@i.type Room</option>
-                                                }
-                                            </select>*@
                                             <select name="" id="" class="form-control">
-                                                    <option value="">Suite</option>
-                                                    <option value="">Family Room</option>
-                                                    <option value="">Deluxe Room</option>
-                                                    <option value="">Classic Room</option>
-                                                    <option value="">Superior Room</option>
-                                                    <option value="">Luxury Room</option>
-                                                </select>
+                                                @foreach (var room in Model)
+                                                {
+                                                    <option value="@room.type">@room.type</option>
+                                                }
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md d-flex">
+                        <div class="col-md-3 d-flex justify-content-center">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Customer</label>
@@ -90,19 +82,23 @@
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                             <select name="" id="" class="form-control">
-                                                <option value="">1 Adult</option>
-                                                <option value="">2 Adult</option>
-                                                <option value="">3 Adult</option>
-                                                <option value="">4 Adult</option>
-                                                <option value="">5 Adult</option>
-                                                <option value="">6 Adult</option>
+                                                @{
+                                                    var distinctMaxValues = Model.Select(r => r.max).Distinct();
+                                                    foreach (var max in distinctMaxValues)
+                                                    {
+                                                        <option value="@max">@max</option>
+                                                    }
+                                                }
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md d-flex">
+                    </div>
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
                             <div class="form-group d-flex align-self-stretch">
                                 <input type="submit" value="Check Availability" class="btn btn-primary py-3 px-4 align-self-stretch">
                             </div>
@@ -157,7 +153,7 @@
                     </div>
                     <div class="media-body p-2 mt-2">
                         <h3 class="heading mb-3">25/7 Front Desk</h3>
-                        <p>Your satisfaction is our priority, and we're here to make every moment convenient and stress-free for you'.</p>
+                        <p>Your satisfaction is our priority, and we're here to make every moment convenient and stress-free for you.</p>
                     </div>
                 </div>
             </div>
@@ -170,7 +166,7 @@
                     </div>
                     <div class="media-body p-2 mt-2">
                         <h3 class="heading mb-3">Restaurant Bar</h3>
-                        <p>Indulge in round-the-clock culinary delights and crafted drinks at our hotel, where we're dedicated to ensuring your dining and beverage needs are met any time of the day.'.</p>
+                        <p>Indulge in round-the-clock culinary delights and crafted drinks at our hotel, where we're dedicated to ensuring your dining and beverage needs are met any time of the day.</p>
                     </div>
                 </div>
             </div>
@@ -183,7 +179,7 @@
                     </div>
                     <div class="media-body p-2 mt-2">
                         <h3 class="heading mb-3">Transfer Services</h3>
-                        <p>Whether you're arriving or departing, our commitment to ensuring a smooth and timely journey is unwavering'.</p>
+                        <p>Whether you're arriving or departing, our commitment to ensuring a smooth and timely journey is unwavering.</p>
                     </div>
                 </div>
             </div>
@@ -212,8 +208,32 @@
             </div>
         </div>
         <div class="row">
-            @{Html.RenderAction("getRandomRoom", "Default");}
+            @{
+                var firstSixRooms = Model.Take(6);
+                foreach (var i in firstSixRooms)
+                {
+                    <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                        <div class="room">
+                            <a href="/@ViewBag.meta/@i.meta/@i.roomID" class="img d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/@i.img1);">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="icon-search2"></span>
+                                </div>
+                            </a>
+                            <div class="text p-3 text-center">
+                                <h3 class="mb-3"><a href="#">@i.type Room</a></h3>
+                                <p>
+                                    <span class="price mr-2">@i.price<span class="currency">$</span></span>
+                                    <span class="per">per night</span>
+                                </p>
+                                <hr>
+                                <p class="pt-1"><a href="/@ViewBag.meta/@i.meta" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
+
     </div>
 </section>
 

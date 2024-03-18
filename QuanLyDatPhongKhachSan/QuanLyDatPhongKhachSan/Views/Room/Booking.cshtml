@@ -1,0 +1,205 @@
+﻿@model QuanLyDatPhongKhachSan.Models.room
+
+@{
+    ViewBag.Title = "Booking";
+}
+
+
+<div class="hero-wrap" style="background-image: url('../Content/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                <div class="text">
+                    <p class="breadcrumbs mb-2" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="../Home/Index">Home</a></span> <span class="mr-2"><a href="/phong-o">Room</a></span></p>
+                    <h1 class="mb-4 bread">Reservation</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row probootstrap-gutter40">
+            <div class="col-md-7">
+                <div class="col-md-12 ftco-animate">
+                    <h2 class="mb-4">@Model.type Room</h2>
+                    <div class="single-slider owl-carousel">
+                        <div class="item">
+                            <div class="room-img" style="background-image: url(../Content/images/@Model.img1);"></div>
+                        </div>
+                        <div class="item">
+                            <div class="room-img" style="background-image: url(../Content/images/@Model.img2);"></div>
+                        </div>
+                        <div class="item">
+                            <div class="room-img" style="background-image: url(../Content/images/@Model.img3);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 room-single mt-4 mb-5 ftco-animate">
+                    <div class="d-md-flex mt-5 mb-5">
+                        <ul class="list">
+                            <li><span>Max: </span> @Model.max</li>
+                            <li><span>Size: </span>@Model.size</li>
+                        </ul>
+                        <ul class="list ml-md-5">
+                            <li><span>View: </span>@Model.view</li>
+                            <li><span>Bed: </span>@Model.bed</li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <h3>Price: @Model.price $</h3>
+                    <p>@Model.description</p>s
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h2 class="mt0">Reservation Form</h2>
+                <form action="#" method="post" class="probootstrap-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" id="lname" name="lname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phonenumber">Phone number <i class="icon icon-mobile-phone"></i> </label>
+                                <div class="form-field">
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email <i class="icon icon-mail-forward"></i></label>
+                                <div class="form-field">
+                                    <input type="email" class="form-control" id="email" name="email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="room">Room</label>
+                        <div class="form-field">
+                            <select name="room" id="room" class="form-control">
+                                <option value="">Select a Room</option>
+                                <option value="1">Classic Room</option>
+                                <option value="2">Ultra Superior Room</option>
+                                <option value="3">Grand Deluxe Room</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="#">Check-in Date</label>
+                                <input type="text" class="form-control checkin_date" >
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="#">Check-out Date</label>
+                                <input type="text" class="form-control checkout_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb30">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="adults">Adults</label>
+                                <div class="form-field">
+                                    <select name="adults" id="adults" class="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="children">Children</label>
+                                <div class="form-field">
+                                    <select name="children" id="children" class="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4+</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg" id="submit" name="submit" value="Reserve">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section> <!-- .section -->
+
+
+
+<section class="instagram pt-5">
+    <div class="container-fluid">
+        <div class="row no-gutters justify-content-center pb-5">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h2><span>Instagram</span></h2>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-sm-12 col-md ftco-animate">
+                <a href="../Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(../Content/images/insta-1.jpg);">
+                    <div class="icon d-flex justify-content-center">
+                        <span class="icon-instagram align-self-center"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md ftco-animate">
+                <a href="../Content/images/insta-2.jpg" class="insta-img image-popup" style="background-image: url(../Content/images/insta-2.jpg);">
+                    <div class="icon d-flex justify-content-center">
+                        <span class="icon-instagram align-self-center"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md ftco-animate">
+                <a href="../Content/images/insta-3.jpg" class="insta-img image-popup" style="background-image: url(../Content/images/insta-3.jpg);">
+                    <div class="icon d-flex justify-content-center">
+                        <span class="icon-instagram align-self-center"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md ftco-animate">
+                <a href="../Content/images/insta-4.jpg" class="insta-img image-popup" style="background-image: url(../Content/images/insta-4.jpg);">
+                    <div class="icon d-flex justify-content-center">
+                        <span class="icon-instagram align-self-center"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md ftco-animate">
+                <a href="../Content/images/insta-5.jpg" class="insta-img image-popup" style="background-image: url(../Content/images/insta-5.jpg);">
+                    <div class="icon d-flex justify-content-center">
+                        <span class="icon-instagram align-self-center"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

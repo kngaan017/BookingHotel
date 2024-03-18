@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e0ad7bb3634743dc8c2161f0b892c425" Name="Diagram1">
-        <EntityTypeShape EntityType="BookingHotel1Model.blog" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.booking" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.menu" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.restaurant" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.review" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.room" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingHotel1Model.user" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <AssociationConnector Association="BookingHotel1Model.FK_blogs_users" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingHotel1Model.FK_bookings_rooms1" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingHotel1Model.FK_bookings_users" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingHotel1Model.FK_reviews_rooms" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingHotel1Model.FK_reviews_users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BookingHotel1Model.blog" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="BookingHotel1Model.booking" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="BookingHotel1Model.menu" Width="1.5" PointX="2.75" PointY="0.875" />
+        <EntityTypeShape EntityType="BookingHotel1Model.restaurant" Width="1.5" PointX="4.75" PointY="0.875" />
+        <EntityTypeShape EntityType="BookingHotel1Model.review" Width="1.5" PointX="6" PointY="6.25" />
+        <EntityTypeShape EntityType="BookingHotel1Model.room" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookingHotel1Model.user" Width="1.5" PointX="0.75" PointY="6.25" />
+        <AssociationConnector Association="BookingHotel1Model.FK_blogs_users" />
+        <AssociationConnector Association="BookingHotel1Model.FK_bookings_rooms1" />
+        <AssociationConnector Association="BookingHotel1Model.FK_bookings_users" />
+        <AssociationConnector Association="BookingHotel1Model.FK_reviews_rooms" />
+        <AssociationConnector Association="BookingHotel1Model.FK_reviews_users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

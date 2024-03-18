@@ -10,17 +10,31 @@ namespace QuanLyDatPhongKhachSan.Controllers
     public class RoomController : Controller
     {
 
-       
+        BookingHotel1Entities1 _db = new BookingHotel1Entities1();
+
         // GET: Room
-        public ActionResult RoomDetail()
+        public ActionResult RoomDetail(long id)
         {
-            return View();
+            var v = from t in _db.rooms
+                    where t.roomID == id
+                    select t;
+            return View(v.FirstOrDefault());
+        }
+
+        public ActionResult Booking(long id)
+        {
+            var v = from t in _db.rooms
+                    where t.roomID == id
+                    select t;
+            return View(v.FirstOrDefault());
         }
 
         public ActionResult Rooms()
         {
-
-            return View();
+            ViewBag.meta = "phong-o";
+            var rooms = _db.rooms.ToList();
+            return View(rooms);
         }
+
     }
 }

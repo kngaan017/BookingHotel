@@ -18,6 +18,7 @@ namespace QuanLyDatPhongKhachSan.Models
         public int userID { get; set; }
         public string title { get; set; }
         public string content { get; set; }
+        public string tag { get; set; }
         public string img { get; set; }
         public Nullable<System.DateTime> publishDate { get; set; }
         public string meta { get; set; }

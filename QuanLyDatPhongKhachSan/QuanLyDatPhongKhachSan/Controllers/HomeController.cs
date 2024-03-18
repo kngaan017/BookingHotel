@@ -9,10 +9,14 @@ namespace QuanLyDatPhongKhachSan.Controllers
 {
     public class HomeController : Controller
     {
+        BookingHotel1Entities1 _db = new BookingHotel1Entities1();
 
+        // GET: Menu
         public ActionResult Index()
         {
-            return View();
+            ViewBag.meta = "phong-o";
+            var rooms = _db.rooms.ToList();
+            return View(rooms);
         }
 
         public ActionResult About()

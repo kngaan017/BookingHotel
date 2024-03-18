@@ -12,18 +12,19 @@ namespace QuanLyDatPhongKhachSan.Controllers
 
 
         BookingHotel1Entities1 _db = new BookingHotel1Entities1();
-
-        public ActionResult getRandomRoom()
+        public ActionResult getRoom()
         {
-            var v = (from t in _db.rooms
-                     orderby Guid.NewGuid()
-                     select t).Take(6);
+            ViewBag.meta = "phong-o";
+            var v = from t in _db.rooms
+                    orderby t.order ascending
+                    select t;
             return PartialView(v.ToList());
         }
 
-        public ActionResult getRoom()
+        public ActionResult getBlog()
         {
-            var v = from t in _db.rooms
+            ViewBag.meta = "blog";
+            var v = from t in _db.blogs
                     orderby t.order ascending
                     select t;
             return PartialView(v.ToList());

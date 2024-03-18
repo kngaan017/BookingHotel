@@ -8,6 +8,7 @@
     <Property Name="userID" Type="int" Nullable="false" />
     <Property Name="title" Type="nvarchar" MaxLength="255" />
     <Property Name="content" Type="nvarchar(max)" />
+    <Property Name="tag" Type="nvarchar" MaxLength="50" />
     <Property Name="img" Type="nvarchar" MaxLength="255" />
     <Property Name="publishDate" Type="datetime" />
     <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -54,6 +55,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="img" Type="ntext" />
     <Property Name="price" Type="float" />
     <Property Name="description" Type="nvarchar" MaxLength="255" />
     <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -84,7 +86,9 @@
     <Property Name="type" Type="nvarchar" MaxLength="50" />
     <Property Name="price" Type="float" />
     <Property Name="size" Type="nvarchar" MaxLength="50" />
-    <Property Name="img" Type="ntext" />
+    <Property Name="img1" Type="ntext" />
+    <Property Name="img2" Type="ntext" />
+    <Property Name="img3" Type="ntext" />
     <Property Name="description" Type="nvarchar(max)" />
     <Property Name="view" Type="nvarchar" MaxLength="50" />
     <Property Name="bed" Type="int" />

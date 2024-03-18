@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyDatPhongKhachSan.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,13 @@ namespace QuanLyDatPhongKhachSan.Controllers
 {
     public class RestaurantController : Controller
     {
-        // GET: Restaurant
+        BookingHotel1Entities1 _db = new BookingHotel1Entities1();
+
+        // GET: Menu
         public ActionResult Restaurant()
         {
-
-            return View();
+            var food = _db.restaurants.ToList();
+            return View(food);
         }
     }
 }

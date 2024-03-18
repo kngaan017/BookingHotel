@@ -11,12 +11,6 @@ namespace QuanLyDatPhongKhachSan.Controllers
 
         BookingHotel1Entities1 _db = new BookingHotel1Entities1();
 
-        // GET: Menu
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult getMenu()
         {
             var v = from t in _db.menus

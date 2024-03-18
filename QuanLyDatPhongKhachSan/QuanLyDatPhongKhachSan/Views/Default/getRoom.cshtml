@@ -1,9 +1,9 @@
-﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.room>
+﻿@model List<QuanLyDatPhongKhachSan.Models.room>
 @foreach (var i in Model)
 {
     <div class="col-sm col-md-6 col-lg-4 ftco-animate">
         <div class="room">
-            <a href="#" class="img d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/@i.img);">
+            <a href="/@ViewBag.meta/@i.meta/@i.roomID" class="img d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/@i.img1);">
                 <div class="icon d-flex justify-content-center align-items-center">
                     <span class="icon-search2"></span>
                 </div>
@@ -21,7 +21,7 @@
                     <li><span>Max: </span>@i.max</li>
                 </ul>
                 <hr>
-                <p class="pt-1"><a href="#" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+                <p class="pt-1"><a href="/@ViewBag.meta/dat-phong/@i.roomID" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
             </div>
         </div>
     </div>

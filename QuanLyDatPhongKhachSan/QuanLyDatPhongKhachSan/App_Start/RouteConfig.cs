@@ -20,6 +20,22 @@ namespace QuanLyDatPhongKhachSan
                 defaults: new { controller = "Home", action = "Index" }
             );
 
+           routes.MapRoute("Account", "{type}/{meta}",
+           new { controller = "Account", action = "Login", meta = UrlParameter.Optional },
+           new RouteValueDictionary
+           {
+                { "type", "dang-nhap" }
+           },
+           namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
+
+           routes.MapRoute("Register", "{type}/{meta}",
+           new { controller = "Account", action = "Register", meta = UrlParameter.Optional },
+           new RouteValueDictionary
+           {
+                 { "type", "dang-ky" }
+           },
+           namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
+
             routes.MapRoute("Restaurant", "{type}/{meta}",
             new { controller = "Restaurant", action = "Restaurant", meta = UrlParameter.Optional },
             new RouteValueDictionary
@@ -37,7 +53,7 @@ namespace QuanLyDatPhongKhachSan
             namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
 
             routes.MapRoute("BlogDetail", "{type}/{meta}/{id}",
-            new { controller = "Blog", action = "BlogDetail", meta = UrlParameter.Optional },
+            new { controller = "Blog", action = "BlogDetail", id = UrlParameter.Optional },
             new RouteValueDictionary
             {
                 { "type", "blog" }
@@ -48,15 +64,23 @@ namespace QuanLyDatPhongKhachSan
             new { controller = "Room", action = "Rooms", meta = UrlParameter.Optional },
             new RouteValueDictionary
             {
-                { "type", "rooms" }
+                { "type", "phong-o" }
             },
             namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
+
+            routes.MapRoute("Book", "{type}/dat-phong/{id}",
+             new { controller = "Room", action = "Booking", id = UrlParameter.Optional },
+             new RouteValueDictionary
+             {
+                { "type", "phong-o" }
+             },
+             namespaces: new[] { "ShopOnline.Controllers" });
 
             routes.MapRoute("RoomDetail", "{type}/{meta}/{id}",
              new { controller = "Room", action = "RoomDetail", id = UrlParameter.Optional },
              new RouteValueDictionary
              {
-                { "type", "rooms" }
+                { "type", "phong-o" }
              },
              namespaces: new[] { "ShopOnline.Controllers" });
 

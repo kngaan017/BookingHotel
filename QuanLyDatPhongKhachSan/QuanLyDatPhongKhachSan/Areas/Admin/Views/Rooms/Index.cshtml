@@ -1,0 +1,104 @@
+﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.room>
+
+@{
+    ViewBag.Title = "Quản lý phòng khách sạn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<title>@ViewBag.Title</title>
+
+@section _Header {
+    <!-- Custom styles for this page -->
+    <link href="~/Areas/Admin/Content/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Quản lý phòng khách sạn</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <p class="text-right">
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+                </p>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Size</th>
+                            <th>Image 1</th>
+                            <th>Bed</th>
+                            <th>Max</th>
+                            <th>Meta</th>
+                            <th>Hide</th>
+                            <th>Order</th>
+                            <th>Date Begin</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.size)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.img1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.bed)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.max)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.meta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.hide)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.datebegin)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.roomID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.roomID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.roomID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+@section _Footer {
+    <!-- Page level plugins -->
+    <script src="~/Areas/Admin/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/Admin/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Areas/Admin/Content/js/demo/datatables-demo.js"></script>
+}
+
+
+

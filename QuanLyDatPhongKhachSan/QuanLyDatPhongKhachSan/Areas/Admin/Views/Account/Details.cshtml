@@ -1,0 +1,82 @@
+﻿@model QuanLyDatPhongKhachSan.Models.user
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container col-lg-10">
+    <h4>Details</h4>
+    <hr />
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.username)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.username)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.password)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.password)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.role)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.role)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.email)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.email)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.meta)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.meta)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.hide)</strong>
+        </div>
+        <div class="col-md-10">
+            <span class="form-control" readonly>@Html.DisplayFor(model => model.hide)</span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.order)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.order)" readonly>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2 text-right align-self-center">
+            <strong>@Html.DisplayNameFor(model => model.datebegin)</strong>
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.datebegin)" readonly>
+        </div>
+    </div>
+</div>
+<div class="container col-lg-10 mb-3">
+    <div class="text-right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.userID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+   

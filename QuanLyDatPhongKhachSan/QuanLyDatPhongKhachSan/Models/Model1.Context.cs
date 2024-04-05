@@ -13,10 +13,10 @@ namespace QuanLyDatPhongKhachSan.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BookingHotel1Entities1 : DbContext
+    public partial class BookingHotel1Entities2 : DbContext
     {
-        public BookingHotel1Entities1()
-            : base("name=BookingHotel1Entities1")
+        public BookingHotel1Entities2()
+            : base("name=BookingHotel1Entities2")
         {
         }
     

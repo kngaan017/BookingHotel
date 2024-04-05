@@ -74,7 +74,7 @@ namespace QuanLyDatPhongKhachSan
              {
                 { "type", "phong-o" }
              },
-             namespaces: new[] { "ShopOnline.Controllers" });
+             namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
 
             routes.MapRoute("RoomDetail", "{type}/{meta}/{id}",
              new { controller = "Room", action = "RoomDetail", id = UrlParameter.Optional },
@@ -82,7 +82,7 @@ namespace QuanLyDatPhongKhachSan
              {
                 { "type", "phong-o" }
              },
-             namespaces: new[] { "ShopOnline.Controllers" });
+             namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
 
             routes.MapRoute("Contact", "{type}/{meta}",
             new { controller = "Contact", action = "Contact", meta = UrlParameter.Optional },
@@ -95,6 +95,7 @@ namespace QuanLyDatPhongKhachSan
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" },
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

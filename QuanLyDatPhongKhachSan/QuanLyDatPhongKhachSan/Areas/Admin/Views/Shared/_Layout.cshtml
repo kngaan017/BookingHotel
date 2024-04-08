@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    
+
+    <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom fonts for this template-->
     <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
@@ -59,7 +60,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","account")">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-people-arrows"></i>
                     <span>Quản lý tài khoản</span>
                 </a>
             </li>
@@ -67,7 +68,7 @@
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","rooms")">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-door-closed"></i>
                     <span>Quản lý phòng</span>
                 </a>
             </li>
@@ -75,7 +76,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","restaurants")">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-store"></i>
                     <span>Quản lý nhà hàng</span>
                 </a>
             </li>
@@ -83,7 +84,7 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","blogs")">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-blog"></i>
                     <span>Quản lý blog</span>
                 </a>
             </li>
@@ -91,8 +92,14 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","bookings")">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-phone"></i>
                     <span>Quản lý đặt phòng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","reviews")">
+                    <i class="fas fa-grin-stars"></i>
+                    <span>Quản lý đánh giá</span>
                 </a>
             </li>
 
@@ -117,7 +124,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -240,6 +247,8 @@
     <!-- Page level custom scripts -->
     <script src="~/Areas/Admin/Content/js/demo/chart-area-demo.js"></script>
     <script src="~/Areas/Admin/Content/js/demo/chart-pie-demo.js"></script>
+    <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet">
+
 
     @RenderSection("_Header", false);
     @RenderSection("_Footer", false);

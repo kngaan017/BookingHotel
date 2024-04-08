@@ -28,15 +28,14 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Content</th>
-                            <th>Tag</th>
+                            @*<th>Content</th>*@
                             <th>Image</th>
                             <th>Publish Date</th>
                             <th>Meta</th>
                             <th>Hide</th>
                             <th>Order</th>
                             <th>Date Begin</th>
-                            <th>Username</th>
+                            @*<th>Username</th>*@
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,19 +44,22 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.title)
+                                    @{
+                                        string title = item.title;
+                                        int maxLength = 20; 
+                                        string displayedTitle = title.Length > maxLength ? title.Substring(0, maxLength) + "..." : title;
+                                    }
+                                    @Html.DisplayFor(modelItem => displayedTitle)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.content)
+                                </td>*@
+                                
+                                <td>
+                                    <img src="~/Areas/Admin/Content/upload/img/blog/@item.img" width="50px" height="50px" />
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.tag)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.img)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.publishDate)
+                                    @(item.publishDate.HasValue ? item.publishDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.meta)
@@ -69,15 +71,24 @@
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.datebegin)
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.user.username)
-                                </td>
+                                </td>*@
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.blogID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.blogID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.blogID })
+                                    <a href="@Url.Action("Edit",  new { id = item.blogID })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.blogID })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.blogID })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
                                 </td>
                             </tr>
                         }

@@ -567,3 +567,5 @@ C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\Qua
 C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\QuanLyDatPhongKhachSan.csproj.CopyComplete
 C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\QuanLyDatPhongKhachSan.dll
 C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\QuanLyDatPhongKhachSan.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.dll
+C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.pdb

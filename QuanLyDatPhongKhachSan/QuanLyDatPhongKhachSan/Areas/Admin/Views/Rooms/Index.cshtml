@@ -31,14 +31,13 @@
                             <th>Type</th>
                             <th>Price</th>
                             <th>Size</th>
-                            <th>Image 1</th>
                             <th>Bed</th>
                             <th>Max</th>
                             <th>Meta</th>
                             <th>Hide</th>
                             <th>Order</th>
                             <th>Date Begin</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,9 +52,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.size)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.img1)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.bed)
@@ -73,12 +69,21 @@
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.datebegin)
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.roomID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.roomID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.roomID })
+                                    <a href="@Url.Action("Edit",  new { id = item.roomID })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.roomID })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.roomID })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
                                 </td>
                             </tr>
                         }

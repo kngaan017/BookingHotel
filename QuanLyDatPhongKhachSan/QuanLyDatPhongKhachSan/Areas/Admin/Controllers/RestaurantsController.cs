@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyDatPhongKhachSan.Help;
 using QuanLyDatPhongKhachSan.Models;
 
 namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private BookingHotel1Entities2 db = new BookingHotel1Entities2();
+        private BookingHotel1Entities3 db = new BookingHotel1Entities3();
 
         // GET: Admin/Restaurants
         public ActionResult Index()
@@ -44,19 +47,55 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
         // POST: Admin/Restaurants/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant)
-        {
-            if (ModelState.IsValid)
-            {
-                db.restaurants.Add(restaurant);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.restaurants.Add(restaurant);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(restaurant);
+        //    return View(restaurant);
+        //}
+        [HttpPost]
+[ValidateAntiForgeryToken]
+public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant, HttpPostedFileBase img)
+{
+    try
+    {
+        var path = "";
+        var filename = "";
+        if (ModelState.IsValid)
+        {
+            if (img != null)
+            {
+                filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
+                path = Path.Combine(Server.MapPath("~/Content/upload/img/restaurant"), filename);
+                img.SaveAs(path);
+                restaurant.img = filename;
+            }
+            else
+            {
+                restaurant.img = "default-restaurant-image.png";
+            }
+            restaurant.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            restaurant.meta = Functions.ConvertToUnSign(restaurant.meta); //convert Tiếng Việt không dấu
+            db.restaurants.Add(restaurant);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    return View(restaurant);
+}
+
+       
 
         // GET: Admin/Restaurants/Edit/5
         public ActionResult Edit(int? id)

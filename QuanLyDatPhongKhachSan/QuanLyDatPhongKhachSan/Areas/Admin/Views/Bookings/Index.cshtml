@@ -29,16 +29,13 @@
                         <tr>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th>Number Of Guest</th>
                             <th>Total</th>
                             <th>Status</th>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Email</th>
                             <th>Type Room</th>
                             <th>Date Begin</th>
-                            <th>Username</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,13 +43,10 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.startDate)
+                                    @(item.startDate.HasValue ? item.startDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.endDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.numberOfGuest)
+                                    @(item.endDate.HasValue ? item.endDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.total)
@@ -66,22 +60,29 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.phone)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.datebegin)
-                                </td>
+                                
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.room.type)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.user.username)
-                                </td>
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                                </td>   
+                                
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.bookingID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.bookingID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.bookingID })
+                                    <a href="@Url.Action("Edit",  new { id = item.bookingID })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.bookingID })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.bookingID })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+
                                 </td>
                             </tr>
                         }

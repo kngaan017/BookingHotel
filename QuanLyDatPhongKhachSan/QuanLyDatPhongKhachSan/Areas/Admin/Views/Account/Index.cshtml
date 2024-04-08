@@ -29,7 +29,6 @@
                     <thead>
                         <tr>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Role</th>
                             <th>Email</th>
                             <th>Meta</th>
@@ -47,9 +46,6 @@
                                     @Html.DisplayFor(modelItem => item.username)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.password)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.role)
                                 </td>
                                 <td>
@@ -65,12 +61,22 @@
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.datebegin)
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
+                          
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.userID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.userID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.userID })
+                                    <a href="@Url.Action("Edit",  new { id = item.userID })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.userID })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.userID })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
                                 </td>
                             </tr>
                         }

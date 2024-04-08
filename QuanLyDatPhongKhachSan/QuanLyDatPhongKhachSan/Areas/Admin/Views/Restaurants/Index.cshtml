@@ -30,10 +30,10 @@
                             <th>Name</th>
                             <th>Image</th>
                             <th>Price</th>
-                            <th>Desciption</th>
+                            @*<th>Desciption</th>*@
                             <th>Order</th>
                             <th>Date Begin</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,24 +44,33 @@
                                     @Html.DisplayFor(modelItem => item.name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.img)
+                                    <img src="~/Areas/Admin/Content/upload/img/restaurant/@item.img" width="50px" height="50px" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.price)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.description)
-                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.description)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.datebegin)
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                    <a href="@Url.Action("Edit",  new { id = item.id })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.id })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.id })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -81,6 +90,19 @@
 
     <!-- Page level custom scripts -->
     <script src="~/Areas/Admin/Content/js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Khi nhấp vào một liên kết hoặc nút để mở modal
+            $('#openModalButton').click(function () {
+                $('#editModal').modal('show');
+            });
+
+            // Khi nhấp vào nút để đóng modal
+            $('#closeModalButton').click(function () {
+                $('#editModal').modal('hide');
+            });
+        });
+    </script>
 }
 
 

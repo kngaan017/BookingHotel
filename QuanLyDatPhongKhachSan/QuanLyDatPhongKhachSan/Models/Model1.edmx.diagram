@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8cc45270119a4c74982f1ac0ac4923f7" Name="Diagram1">
+      <Diagram DiagramId="ab73ac8848a44644a7768b6ec215ca3e" Name="Diagram1">
         <EntityTypeShape EntityType="BookingHotel1Model.blog" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.booking" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.menu" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.restaurant" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.review" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.room" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingHotel1Model.sysdiagram" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingHotel1Model.user" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <AssociationConnector Association="BookingHotel1Model.FK_blogs_users" ManuallyRouted="false" />
         <AssociationConnector Association="BookingHotel1Model.FK_bookings_rooms1" ManuallyRouted="false" />

@@ -20,6 +20,23 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
             var bookings = db.bookings.Include(b => b.room).Include(b => b.user);
             return View(bookings.ToList());
         }
+        [HttpPost]
+        public ActionResult UpdateStatus(int itemId)
+        {
+            // Lấy item từ cơ sở dữ liệu dựa trên itemId
+            var item = db.bookings.Find(itemId);
+
+            if (item != null && item.status == "Pending")
+            {
+                item.status = "Accepted";
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            // Trả về thông báo lỗi nếu không cập nhật được
+            return Json(new { success = false });
+        }
+
 
         // GET: Admin/Bookings/Details/5
         public ActionResult Details(int? id)

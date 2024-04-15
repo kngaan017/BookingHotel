@@ -2,7 +2,7 @@
 @model IEnumerable<QuanLyDatPhongKhachSan.Models.review>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý đánh giá";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,20 +19,20 @@
     <!-- DataTales -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Quản lý phòng khách sạn</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Quản lý đánh giá</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <p class="text-right">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+                    @*<button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>*@
                 </p>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Rating</th>
                             <th>Comment</th>
                             <th>reviewDate</th>
-                            <th>Meta</th>
                             <th>Hide</th>
                             <th>Order</th>
                             <th>Date Begin</th>
@@ -44,6 +44,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.reviewID)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.rating)
                                 </td>
@@ -58,12 +61,9 @@
                                 <td>
                                     @(item.reviewDate.HasValue ? item.reviewDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
+                                
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.meta)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.hide)
+                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
@@ -76,7 +76,7 @@
                                     @Html.DisplayFor(modelItem => item.user.username)
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit",  new { id = item.reviewID })" class="btn btn-outline-dark">
+                                    <a href="@Url.Action("Edit","reviews",  new { id = item.reviewID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>

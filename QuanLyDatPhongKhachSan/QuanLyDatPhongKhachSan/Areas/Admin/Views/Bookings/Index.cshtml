@@ -21,12 +21,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <p class="text-right">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
-                </p>
+                @*<p class="text-right">
+                        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+                    </p>*@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Total</th>
@@ -34,7 +35,6 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Type Room</th>
-                            <th>Date Begin</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -42,6 +42,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.bookingID)
+                                </td>
                                 <td>
                                     @(item.startDate.HasValue ? item.startDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
@@ -60,16 +63,17 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.phone)
                                 </td>
-                                
+
 
                                 <td>
                                     @Html.DisplayFor(modelItem => item.room.type)
                                 </td>
+
                                 <td>
-                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
-                                </td>   
-                                
-                                <td>
+                                    <a class="btn btn-outline-success acceptButton" data-item-id="@item.bookingID">
+                                        Accept
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
                                     <a href="@Url.Action("Edit",  new { id = item.bookingID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -82,7 +86,6 @@
                                         <i class='fas fa-trash-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>
-
                                 </td>
                             </tr>
                         }
@@ -94,6 +97,25 @@
 
 </div>
 <!-- /.container-fluid -->
+<script>
+    $(document).ready(function () {
+        $(".acceptButton").click(function () {
+            var itemId = $(this).data("item-id");
+            var button = $(this); 
+
+            $.ajax({
+                url: "/Bookings/UpdateStatus",
+                method: "POST",
+                data: { itemId: itemId },
+                success: function (response) {
+                    if (response.success) {
+                        button.closest("tr").find("td:nth-child(5)").text("Accepted");
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 @section _Footer {
     <!-- Page level plugins -->

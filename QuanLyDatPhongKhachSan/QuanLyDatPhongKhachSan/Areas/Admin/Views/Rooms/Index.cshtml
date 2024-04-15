@@ -18,22 +18,38 @@
     <!-- DataTales -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Quản lý phòng khách sạn</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Quản lý phòng</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <p class="text-right">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
-                </p>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <input type="hidden" id="selectedBedValue" value="" />
+                        <!-- Phần tử Chọn số giường -->
+                        <label for="bedsFilter">Chọn số giường:</label>
+                        <select id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
+                            <option value="">Tất cả</option>
+                            @foreach (var bed in ViewBag.MaxValues)
+                            {
+                                <option value="@bed" data-bed="@bed">@bed giường</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <!-- Phần tử Create New -->
+                        <p class="text-right">
+                            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "rooms")'">Create New</button>
+                        </p>
+                    </div>
+                </div>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Type</th>
+                            <th>Img</th>
                             <th>Price</th>
-                            <th>Size</th>
                             <th>Bed</th>
-                            <th>Max</th>
-                            <th>Meta</th>
                             <th>Hide</th>
                             <th>Order</th>
                             <th>Date Begin</th>
@@ -45,25 +61,23 @@
                         {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.roomID)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.type)
+                                </td>
+                                <td>
+                                    <img src="~/Areas/Admin/Content/upload/img/room/@item.img1" width="50px" height="50px" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.price)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.size)
-                                </td>
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.bed)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.max)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.meta)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.hide)
+                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
@@ -72,7 +86,7 @@
                                     @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit",  new { id = item.roomID })" class="btn btn-outline-dark">
+                                    <a href="@Url.Action("Edit","rooms",  new { id = item.roomID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>
@@ -95,6 +109,27 @@
 
 </div>
 <!-- /.container-fluid -->
+<script>
+    function setSelectedBed() {
+        var selectedBed = document.getElementById("bedsFilter").value;
+        sessionStorage.setItem("selectedBed", selectedBed);
+    }
+    function filterRooms() {
+        var selectedValue = document.getElementById("bedsFilter").value;
+        var table = document.getElementById("dataTable");
+        var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var bedValue = rows[i].getElementsByTagName("td")[4].innerText.trim();
+
+            if (selectedValue === "" || bedValue === selectedValue) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
 
 @section _Footer {
     <!-- Page level plugins -->
@@ -103,6 +138,8 @@
 
     <!-- Page level custom scripts -->
     <script src="~/Areas/Admin/Content/js/demo/datatables-demo.js"></script>
+
+
 }
 
 

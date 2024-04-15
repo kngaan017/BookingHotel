@@ -17,8 +17,15 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
         // GET: Admin/Blogs
         public ActionResult Index()
         {
-            var blogs = db.blogs.Include(b => b.user);
-            return View(blogs.ToList());
+            var distinctMaxValuesString = db.blogs.Select(r => r.tag).Distinct().ToList();
+
+            ViewBag.MaxValues = distinctMaxValuesString;
+
+            var rooms = db.blogs.ToList();
+
+            return View(rooms);
+            //var blogs = db.blogs.Include(b => b.user);
+            //return View(blogs.ToList());
         }
 
         // GET: Admin/Blogs/Details/5

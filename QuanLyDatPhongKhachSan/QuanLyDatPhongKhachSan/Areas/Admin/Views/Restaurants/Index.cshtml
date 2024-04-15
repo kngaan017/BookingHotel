@@ -22,11 +22,12 @@
         <div class="card-body">
             <div class="table-responsive">
                 <p class="text-right">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "restaurants")'">Create New</button>
                 </p>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Name</th>
                             <th>Image</th>
                             <th>Price</th>
@@ -41,6 +42,9 @@
                         {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.id)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.name)
                                 </td>
                                 <td>
@@ -50,8 +54,8 @@
                                     @Html.DisplayFor(modelItem => item.price)
                                 </td>
                                 @*<td>
-                                        @Html.DisplayFor(modelItem => item.description)
-                                    </td>*@
+            @Html.DisplayFor(modelItem => item.description)
+        </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
@@ -59,15 +63,15 @@
                                     @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit",  new { id = item.id })" class="btn btn-outline-dark">
+                                    <a href="@Url.Action("Edit","restaurants", new { id = item.id })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>
-                                    <a href="@Url.Action("Details",  new { id = item.id })" class="btn btn-outline-primary">
+                                    <a href="@Url.Action("Details","restaurants", new { id = item.id })" class="btn btn-outline-primary">
                                         <i class='fas fa-info-circle'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>
-                                    <a href="@Url.Action("Delete",  new { id = item.id })" class="btn btn-outline-danger">
+                                    <a href="@Url.Action("Delete", new { id = item.id })" class="btn btn-outline-danger">
                                         <i class='fas fa-trash-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>

@@ -53,14 +53,17 @@
             {
                 <div class="col-md-6">
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url(../Content/images/@i.img);"></div>
+                        <div class="img" style="background-image: url(/Areas/Admin/Content/upload/img/restaurant/@i.img);"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>@i.name</span></h3>
                                 <span class="price">$@i.price</span>
                             </div>
                             <div class="d-block">
-                                <p>@i.description</p>
+                                @{
+                                    string description = System.Text.RegularExpressions.Regex.Replace(i.description, "<.*?>", string.Empty);
+                                }
+                                <p>@description</p>
                             </div>
                         </div>
                     </div>

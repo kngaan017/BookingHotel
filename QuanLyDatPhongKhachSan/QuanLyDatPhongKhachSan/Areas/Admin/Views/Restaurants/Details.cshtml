@@ -4,71 +4,87 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container col-lg-10">
-        <h4>Details</h4>
-        <hr />
-        <div class="row mb-3">
+    <h4><b>Chi tiết món ăn</b></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.name)</strong>
+                <strong>@Html.Label("Tên món ăn", htmlAttributes: new { @class = "control-label" })</strong>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input type="text" class="form-control" value="@Html.DisplayFor(model => model.name)" readonly>
             </div>
-        </div>
-        <div class="row mb-3">
             <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.img)</strong>
+                <strong>@Html.Label("Giá món ăn", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.price)" readonly>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Ảnh món ăn", htmlAttributes: new { @class = "control-label" })</strong>
             </div>
             <div class="col-md-10">
                 <img src="~/Areas/Admin/Content/upload/img/restaurant/@Model.img" width="50px" height="50px" />
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.price)</strong>
-            </div>
-            <div class="col-md-10">
-                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.price)" readonly>
-            </div>
-        </div>
-        <div class="row mb-3">
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-2 text-right align-self-center">
                 <strong>@Html.DisplayNameFor(model => model.description)</strong>
             </div>
             <div class="col-md-10">
-                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.description)" readonly>
+                @{
+                    string description = Model.description;
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        description = System.Text.RegularExpressions.Regex.Replace(description, "<.*?>", string.Empty);
+                    }
+                }
+                <textarea readonly class="form-control" rows="3" style="resize: vertical; max-height: 200px; max-width: 327pxs;">@description</textarea>
             </div>
         </div>
-        <div class="row mb-3">
+    </div>
+
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.meta)</strong>
+                <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input type="text" class="form-control" value="@Html.DisplayFor(model => model.meta)" readonly>
             </div>
-        </div>
-        <div class="row mb-3">
             <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.hide)</strong>
+                <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })</strong>
             </div>
-            <div class="col-md-10">
-                <span class="form-control" readonly>@Html.DisplayFor(model => model.hide)</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.order)</strong>
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input type="text" class="form-control" value="@Html.DisplayFor(model => model.order)" readonly>
             </div>
         </div>
-        <div class="row mb-3">
+    </div>
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-2 text-right align-self-center">
-                <strong>@Html.DisplayNameFor(model => model.datebegin)</strong>
+                <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
             </div>
             <div class="col-md-10">
-                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.datebegin)" readonly>
+                @{
+                    bool hide = (Model.hide.GetValueOrDefault(false) ? true : false);
+                }
+                @Html.CheckBoxFor(model => hide, new { disabled = "disabled" })
             </div>
         </div>
     </div>
@@ -78,3 +94,4 @@
             @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
+</div>

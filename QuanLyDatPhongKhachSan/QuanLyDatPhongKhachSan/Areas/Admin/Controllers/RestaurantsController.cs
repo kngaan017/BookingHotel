@@ -45,57 +45,47 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
         }
 
         // POST: Admin/Restaurants/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.restaurants.Add(restaurant);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(restaurant);
-        //}
         [HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant, HttpPostedFileBase img)
-{
-    try
-    {
-        var path = "";
-        var filename = "";
-        if (ModelState.IsValid)
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "id,name,price,img,description,meta,hdie,order,datebegin")] restaurant restaurant, HttpPostedFileBase img)
         {
-            if (img != null)
+            try
             {
-                filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
-                path = Path.Combine(Server.MapPath("~/Content/upload/img/restaurant"), filename);
-                img.SaveAs(path);
-                restaurant.img = filename;
+                var path = "";
+                var filename = "";
+                if (ModelState.IsValid)
+                {
+                    if (img != null)
+                    {
+                        //filename = Guid.NewGuid().ToString() + img.FileName;
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
+                        path = Path.Combine(Server.MapPath("~/Areas/Admin/Content/upload/img/restaurant"), filename);
+                        img.SaveAs(path);
+                        restaurant.img = filename; //Lưu ý
+                    }
+                    else
+                    {
+                        restaurant.img = "menu-1.jpg";
+                    }
+                    restaurant.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    restaurant.meta = Functions.ConvertToUnSign(restaurant.meta); //convert Tiếng Việt không dấu
+                    db.restaurants.Add(restaurant);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index", "product", new { id = restaurant.categoryid });
+                }
             }
-            else
+            catch (DbEntityValidationException e)
             {
-                restaurant.img = "default-restaurant-image.png";
+                throw e;
             }
-            restaurant.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            restaurant.meta = Functions.ConvertToUnSign(restaurant.meta); //convert Tiếng Việt không dấu
-            db.restaurants.Add(restaurant);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(restaurant);
         }
-    }
-    catch (Exception ex)
-    {
-        throw ex;
-    }
-    return View(restaurant);
-}
-
-       
 
         // GET: Admin/Restaurants/Edit/5
         public ActionResult Edit(int? id)
@@ -113,22 +103,50 @@ public ActionResult Create([Bind(Include = "id,name,img,price,description,meta,h
         }
 
         // POST: Admin/Restaurants/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "id,name,img,price,description,meta,hide,order,datebegin")] restaurant restaurant, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(restaurant).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var path = "";
+                var filename = "";
+                restaurant temp = db.restaurants.Find(restaurant.id);
+                if (ModelState.IsValid)
+                {
+                    if (img != null)
+                    {
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
+                        path = Path.Combine(Server.MapPath("~/Areas/Admin/Content/upload/img/restaurant"), filename);
+                        img.SaveAs(path);
+                        temp.img = filename; //Lưu ý
+                    }
+                    temp.name = restaurant.name;
+                    temp.price = restaurant.price;
+                    temp.description = restaurant.description;
+                    temp.meta = Functions.ConvertToUnSign(restaurant.meta); //convert Tiếng Việt không dấu
+                    temp.hide = restaurant.hide;
+                    temp.order = restaurant.order;
+                    db.Entry(temp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index", "restaurant", new { id = restaurant.id });
+                }
             }
+            catch (DbEntityValidationException e)
+            {
+                throw e;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return View(restaurant);
         }
 
-        // GET: Admin/Restaurants/Delete/5
+        //// GET: Admin/Restaurants/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)

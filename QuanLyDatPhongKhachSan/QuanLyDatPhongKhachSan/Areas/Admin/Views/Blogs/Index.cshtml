@@ -21,21 +21,38 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <p class="text-right">
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
-                </p>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <input type="hidden" id="selectedBedValue" value="" />
+                        <!-- Phần tử Chọn số giường -->
+                        <label for="bedsFilter">Chọn số giường:</label>
+                        <select id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
+                            <option value="">Tất cả</option>
+                            @foreach (var tag in ViewBag.MaxValues)
+                            {
+                                <option value="@tag" data-bed="@tag">@tag</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="text-right">
+                            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create", "blogs")'">Create New</button>
+                        </p>
+                    </div>
+                </div>
+                
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Title</th>
                             @*<th>Content</th>*@
                             <th>Image</th>
+                            <th>Tag</th>
                             <th>Publish Date</th>
                             <th>Meta</th>
                             <th>Hide</th>
                             <th>Order</th>
-                            <th>Date Begin</th>
-                            @*<th>Username</th>*@
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,20 +60,24 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>@Html.DisplayFor(modelItem => item.blogID)</td>
                                 <td>
                                     @{
                                         string title = item.title;
-                                        int maxLength = 20; 
+                                        int maxLength = 20;
                                         string displayedTitle = title.Length > maxLength ? title.Substring(0, maxLength) + "..." : title;
                                     }
                                     @Html.DisplayFor(modelItem => displayedTitle)
                                 </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => item.content)
-                                </td>*@
-                                
+                            @Html.DisplayFor(modelItem => item.content)
+                        </td>*@
+
                                 <td>
                                     <img src="~/Areas/Admin/Content/upload/img/blog/@item.img" width="50px" height="50px" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tag)
                                 </td>
                                 <td>
                                     @(item.publishDate.HasValue ? item.publishDate.Value.ToString("dd/MM/yyyy") : "")
@@ -65,19 +86,19 @@
                                     @Html.DisplayFor(modelItem => item.meta)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.hide)
+                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
-                                <td>
-                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
-                                </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => item.user.username)
-                                </td>*@
+                            @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                        </td>*@
+                                @*<td>
+                            @Html.DisplayFor(modelItem => item.user.username)
+                        </td>*@
                                 <td>
-                                    <a href="@Url.Action("Edit",  new { id = item.blogID })" class="btn btn-outline-dark">
+                                    <a href="@Url.Action("Edit","blogs",  new { id = item.blogID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                                     </a>
@@ -100,7 +121,27 @@
 
 </div>
 <!-- /.container-fluid -->
+<script>
+    function setSelectedBed() {
+        var selectedBed = document.getElementById("bedsFilter").value;
+        sessionStorage.setItem("selectedBed", selectedBed);
+    }
+    function filterRooms() {
+        var selectedValue = document.getElementById("bedsFilter").value;
+        var table = document.getElementById("dataTable");
+        var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
 
+        for (var i = 0; i < rows.length; i++) {
+            var bedValue = rows[i].getElementsByTagName("td")[3].innerText.trim();
+
+            if (selectedValue === "" || bedValue === selectedValue) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
 @section _Footer {
     <!-- Page level plugins -->
     <script src="~/Areas/Admin/Content/vendor/datatables/jquery.dataTables.min.js"></script>

@@ -16,6 +16,9 @@
     <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <!-- Custom styles for this template-->
     <link href="~/Areas/Admin/Content/css/sb-admin-2.min.css" rel="stylesheet">
@@ -52,51 +55,42 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "account" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","account")">
                     <i class="fas fa-people-arrows"></i>
                     <span>Quản lý tài khoản</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "rooms" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","rooms")">
                     <i class="fas fa-door-closed"></i>
                     <span>Quản lý phòng</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "restaurants" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","restaurants")">
                     <i class="fas fa-store"></i>
                     <span>Quản lý nhà hàng</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "blogs" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","blogs")">
                     <i class="fas fa-blog"></i>
                     <span>Quản lý blog</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "bookings" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","bookings")">
                     <i class="fas fa-phone"></i>
                     <span>Quản lý đặt phòng</span>
                 </a>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "reviews" ? "active" : "")">
                 <a class="nav-link" href="@Url.Action("Index","reviews")">
                     <i class="fas fa-grin-stars"></i>
                     <span>Quản lý đánh giá</span>
@@ -195,7 +189,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Ngan vs Truc 2024</span>
                     </div>
                 </div>
             </footer>
@@ -230,8 +224,8 @@
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript-->
+
     <script src="~/Areas/Admin/Content/vendor/jquery/jquery.min.js"></script>
     <script src="~/Areas/Admin/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -248,10 +242,8 @@
     <script src="~/Areas/Admin/Content/js/demo/chart-area-demo.js"></script>
     <script src="~/Areas/Admin/Content/js/demo/chart-pie-demo.js"></script>
     <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet">
-
-
-    @RenderSection("_Header", false);
-    @RenderSection("_Footer", false);
+    @RenderSection("_Header", false)
+    @RenderSection("_Footer", false)
 
 </body>
 

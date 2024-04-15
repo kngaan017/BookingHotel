@@ -5,125 +5,137 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "restaurants", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="container col-lg-10">
-        <h4>Nhà hàng</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="container col-lg-10">
+    <h4><b>Tạo mới món ăn</b></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Tên món ăn", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Giá món ăn", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.img, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Ảnh món ăn", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-10" style="display: flex; align-items: center;">
+                <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event)" style="margin-right: 10px;" />
+                <img id="imgPreview" src="#" alt="Ảnh món ăn" style="display: none; width: 50px; height: 50px;" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Mô tả món ăn", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.hide, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    @Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label" })
-                </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.datebegin, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.datebegin, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <input type="submit" value="Create" class="btn btn-primary text-right" />
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="hide" name="hide" value="true" />
+                    </label>
+                    @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
-}
-<div class="container col-lg-10 mb-3">
-    <div class="text-right">
-        @Html.ActionLink("Back to List", "Index")
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="submit" value="Create" class="btn btn-primary text-right" />
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
     </div>
 </div>
+}
 
+@section _Footer
+{
+
+    <script src="~/Areas/Admin/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("description");
+        var editor = CKEDITOR.replace("description", { height: '800px' });
+        customConfig: '/Areas/admin/Content/ckeditor/config.js';
+    </script>
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var text = $.trim($(this).val().toLowerCase());
+                var text_create;
+                text_create = text.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+                $('#meta').val(text_create);
+            }).keyup();
+        });
+        function displaySelectedImage(event) {
+            var input = event.target;
+            var imgPreview = document.getElementById('imgPreview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block'; 
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

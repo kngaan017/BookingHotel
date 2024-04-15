@@ -6,142 +6,148 @@
 }
 
 <div class="container col-lg-10">
-    <h4>Details</h4>
+    <h4><b>Chi tiết đặt phòng</b></h4>
     <hr />
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.user.username)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.user.username)" readonly>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.room.type)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.room.type)" readonly>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.startDate)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.startDate)" readonly>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.bookingID)
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("User ID", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.userID)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Room ID", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.roomID)" readonly>
+
+            </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.endDate)</strong>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Loại phòng", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.room.type)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.status)" readonly>
+            </div>
         </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.endDate)" readonly>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Ngày bắt đầu", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.startDate)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Ngày kết thúc", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.endDate)" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Tổng số người", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.numberOfGuest)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Tổng tiền", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.total)" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Tên khách", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.name)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Số điện thoại", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.phone)" readonly>
+            </div>
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.numberOfGuest)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.numberOfGuest)" readonly>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.total)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.total)" readonly>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.status)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.status)" readonly>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Email", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.email)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Yêu cầu khác", htmlAttributes: new { @class = "control-label"})</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Không có" value="@Html.DisplayFor(model => model.requests)" readonly>
+            </div>
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.name)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.name)" readonly>
-        </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.phone)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.phone)" readonly>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.email)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.email)" readonly>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.requests)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.requests)" readonly>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.meta)" readonly>
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.order)" readonly>
+            </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.meta)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.meta)" readonly>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.hide)</strong>
-        </div>
-        <div class="col-md-10">
-            <span class="form-control" readonly>@Html.DisplayFor(model => model.hide)</span>
+    <div class="form-group">
+        <div class="row">
+            
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @{
+                    bool hide = (Model.hide.GetValueOrDefault(false) ? true : false);
+                }
+                @Html.CheckBoxFor(model => hide, new { disabled = "disabled" })
+            </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.order)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.order)" readonly>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-2 text-right align-self-center">
-            <strong>@Html.DisplayNameFor(model => model.datebegin)</strong>
-        </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.datebegin)" readonly>
+    <div class="container col-lg-10 mb-3">
+        <div class="text-right">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.bookingID }) |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 </div>
-<div class="container col-lg-10 mb-3">
-    <div class="text-right">
-        @Html.ActionLink("Edit", "Edit", new { id = Model.userID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</div>
+
 
 

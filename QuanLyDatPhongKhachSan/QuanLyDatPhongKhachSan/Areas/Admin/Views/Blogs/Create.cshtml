@@ -1,141 +1,174 @@
 ﻿@model QuanLyDatPhongKhachSan.Models.blog
+@using QuanLyDatPhongKhachSan.Help
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-@using (Html.BeginForm())
+@{
+    var blogService = new BlogService();
+}
+@using (Html.BeginForm("Create", "blogs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="container col-lg-10">
-    <h4>Blog</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container col-lg-10">
+        <h4><b>Tạo mới blog</b></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @{
+                        var selectedBed = Session["selectedBed"] as string;
+                        var availableBeds = blogService.GetAvailableBlogs().Select(b => new SelectListItem
+                        {
+                            Text = b.ToString(),
+                            Value = b.ToString(),
+                            Selected = b.ToString() == selectedBed
+                        });
+                    }
+                    @Html.DropDownList("SelectedBed", availableBeds, "Chọn tag", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.tag, "", new { @class = "text-danger" })
+                </div>
+                @*<div class="col-md-2 text-right align-self-center">
+                        <strong>@Html.Label("Tag", htmlAttributes: new { @class = "control-label" })</strong>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.tag, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.tag, "", new { @class = "text-danger" })
+                    </div>*@
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.content, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Ảnh", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-10" style="display: flex; align-items: center;">
+                    <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event)" style="margin-right: 10px;" />
+                    <img id="imgPreview" src="#" alt="Ảnh món ăn" style="display: none; width: 50px; height: 50px;" />
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.tag, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tag, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tag, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Nội dung blog", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-10">
+                    <textarea id="blogContent" name="blogContent" class="form-control" required="required"></textarea>
+                    @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.img, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.publishDate, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.publishDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.publishDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="hide" name="hide" value="true" />
+                        </label>
+                        @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.hide, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <input type="submit" value="Create" class="btn btn-primary text-right" />
+                    @Html.ActionLink("Back to List", "Index")
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.datebegin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.datebegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <input type="submit" value="Create" class="btn btn-primary text-right" />
-            </div>
-        </div>
-    </div>
-</div>
 }
+<script>
+    window.onload = function () {
+        var selectedBed = sessionStorage.getItem("selectedBed");
+        console.log(selectedBed);
 
-<div class="container col-lg-10 mb-3">
-    <div class="text-right">
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</div>
+        var dropdown = document.getElementById("SelectedBed");
+        if (selectedBed) {
+            for (var i = 0; i < dropdown.options.length; i++) {
+                if (dropdown.options[i].value === selectedBed) {
+                    dropdown.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    };
+</script>
+
+
+@section _Footer
+{
+
+    <script src="~/Areas/Admin/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("blogContent");
+        var editor = CKEDITOR.replace("blogContent", { height: '800' });
+        customConfig: '/Areas/admin/Content/ckeditor/config.js';
+    </script>
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var text = $.trim($(this).val().toLowerCase());
+                var text_create;
+                text_create = text.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+                $('#meta').val(text_create);
+            }).keyup();
+        });
+        function displaySelectedImage(event) {
+            var input = event.target;
+            var imgPreview = document.getElementById('imgPreview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

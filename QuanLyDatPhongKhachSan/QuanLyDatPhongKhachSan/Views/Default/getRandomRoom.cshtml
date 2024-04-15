@@ -1,0 +1,25 @@
+﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.room>
+@foreach (var i in Model)
+{
+    <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+        <div class="room">
+            <a href="@i.meta" class="img d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/@i.img1);">
+                <div class="icon d-flex justify-content-center align-items-center">
+                    <span class="icon-search2"></span>
+                </div>
+            </a>
+            <div class="text p-3 text-center">
+                <h3 class="mb-3"><a href="#">@i.type Room</a></h3>
+                <p>
+                    <span class="price mr-2">@i.price<span class="currency">$</span></span>
+                    <span class="per">per night</span>
+                </p>
+                <hr>
+                <p class="pt-1"><a href="@i.meta" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+            </div>
+        </div>
+    </div>
+}
+
+
+

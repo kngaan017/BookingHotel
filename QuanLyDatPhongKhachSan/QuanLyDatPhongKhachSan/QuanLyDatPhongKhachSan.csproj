@@ -152,6 +152,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Help\GetAvailableBlogs.cs" />
+    <Compile Include="Help\GetAvailableBeds.cs" />
     <Compile Include="Help\Functions.cs" />
     <Compile Include="Models\blog.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -3012,6 +3014,10 @@
     <Content Include="Areas\Admin\Content\upload\img\blog\image_2.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\blog\image_3.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\blog\image_4.jpg" />
+    <Content Include="Content\images\image_1.jpg" />
+    <Content Include="Content\images\image_2.jpg" />
+    <Content Include="Content\images\image_3.jpg" />
+    <Content Include="Content\images\image_4.jpg" />
     <Content Include="Content\images\image_5.jpg" />
     <Content Include="Content\images\image_6.jpg" />
     <Content Include="Content\images\image_7.jpg" />
@@ -3029,6 +3035,14 @@
     <Content Include="Areas\Admin\Content\upload\img\restaurant\menu-6.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\restaurant\menu-7.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\restaurant\menu-8.jpg" />
+    <Content Include="Content\images\menu-1.jpg" />
+    <Content Include="Content\images\menu-2.jpg" />
+    <Content Include="Content\images\menu-3.jpg" />
+    <Content Include="Content\images\menu-4.jpg" />
+    <Content Include="Content\images\menu-5.jpg" />
+    <Content Include="Content\images\menu-6.jpg" />
+    <Content Include="Content\images\menu-7.jpg" />
+    <Content Include="Content\images\menu-8.jpg" />
     <Content Include="Content\images\person_1.jpg" />
     <Content Include="Content\images\person_2.jpg" />
     <Content Include="Content\images\person_3.jpg" />
@@ -3039,6 +3053,12 @@
     <Content Include="Areas\Admin\Content\upload\img\room\room-4.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\room\room-5.jpg" />
     <Content Include="Areas\Admin\Content\upload\img\room\room-6.jpg" />
+    <Content Include="Content\images\room-1.jpg" />
+    <Content Include="Content\images\room-2.jpg" />
+    <Content Include="Content\images\room-3.jpg" />
+    <Content Include="Content\images\room-4.jpg" />
+    <Content Include="Content\images\room-5.jpg" />
+    <Content Include="Content\images\room-6.jpg" />
     <Content Include="Content\images\staff-1.jpg" />
     <Content Include="Content\images\staff-2.jpg" />
     <Content Include="Content\images\staff-3.jpg" />
@@ -3314,6 +3334,8 @@
     <Content Include="Areas\Admin\Content\ckeditor\skins\moonocolor\readme.md" />
     <Content Include="Areas\Admin\Content\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Areas\Admin\Content\ckfinder\userfiles\.htaccess" />
+    <Content Include="Content\images\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MyLayout.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

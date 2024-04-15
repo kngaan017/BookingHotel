@@ -5,200 +5,226 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm("Edit", "rooms", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="container col-lg-10">
-    <h4>Phòng</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.roomID)
+    <div class="container col-lg-10">
+    <h4><b>Chỉnh sửa phòng ở</b></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.roomID)
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Loại phòng", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.max, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.max, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-1 text-right align-self-center">
+                    <strong>@Html.Label("View", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.view, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.view, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Tên phòng", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-1 text-right align-self-center">
+                    <strong>@Html.Label("Ảnh 1", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-5">
+                    @{
+                        string imgName1 = string.IsNullOrEmpty(Model.img1) ? "No file chosen" : Model.img1;
+                    }
+                    <input type="file" name="img1" id="img1" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview1')" />
+                    <img id="imgPreview1" src="~/Areas/Admin/Content/upload/img/room/@Model.img1" width="50px" height="50px" />
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.img1, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.img1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.img1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.img2, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.img2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.img2, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Số giường", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.bed, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.bed, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-1 text-right align-self-center">
+                    <strong>@Html.Label("Ảnh 2", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-5">
+                    @{
+                        string imgName2 = string.IsNullOrEmpty(Model.img2) ? "No file chosen" : Model.img2;
+                    }
+                    <input type="file" name="img2" id="img2" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview2')" />
+                    <img id="imgPreview2" src="~/Areas/Admin/Content/upload/img/room/@Model.img2" width="50px" height="50px" />
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.img3, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.img3, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.img3, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Diện tích", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-1 text-right align-self-center">
+                    <strong>@Html.Label("Ảnh 3", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-5">
+                    @{
+                        string imgName3 = string.IsNullOrEmpty(Model.img3) ? "No file chosen" : Model.img3;
+                    }
+                    <input type="file" name="img3" id="img3" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview3')" />
+                    <img id="imgPreview3" src="~/Areas/Admin/Content/upload/img/room/@Model.img3" width="50px" height="50px" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.view, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.view, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.view, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Giá", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Mô tả phòng ở", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.bed, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.bed, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.bed, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.max, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.max, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.max, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-10">
+                    @{
+                        bool hide = (Model.hide.GetValueOrDefault(false) ? true : false);
+                    }
+                    @Html.CheckBoxFor(model => hide)
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.hide, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <input type="submit" value="Save" class="btn btn-primary text-right" />
+                    @Html.ActionLink("Back to List", "Index")
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
-            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-2 text-right align-self-center">
-                @Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.datebegin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.datebegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <input type="submit" value="Save" class="btn btn-primary text-right" />
-            </div>
-        </div>
-    </div>
-</div>
 }
 
-<div class="container col-lg-10 mb-3">
-    <div class="text-right">
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</div>
 
+@section _Footer
+{
+
+    <script src="~/Areas/Admin/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("description");
+        var editor = CKEDITOR.replace("description", { height: '800px' });
+        customConfig: '/Areas/admin/Content/ckeditor/config.js';
+    </script>
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var text = $.trim($(this).val().toLowerCase());
+                var text_create;
+                text_create = text.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+                $('#meta').val(text_create);
+            }).keyup();
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            var inputs = document.querySelectorAll("input[type='file']");
+            inputs.forEach(function (input) {
+                input.addEventListener("change", function (event) {
+                    displaySelectedFileName(event);
+                });
+            });
+        });
+
+        function displaySelectedImage(event, imgPreviewId) {
+            var input = event.target;
+            var label = document.getElementById("imgLabel");
+            var imgPreview = document.getElementById(imgPreviewId);
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    label.textContent = input.files[0].name;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                imgPreview.src = "";
+                label.textContent = "No file chosen";
+            }
+        }
+
+        function displaySelectedFileName(event) {
+            var input = event.target;
+            var label = document.getElementById(input.id + "Label");
+
+            if (input.files.length > 0) {
+                label.textContent = input.files[0].name;
+            } else {
+                label.textContent = "No file chosen";
+            }
+        }
+
+    </script>
+}
 

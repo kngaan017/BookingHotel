@@ -11,11 +11,12 @@ CKEDITOR.editorConfig = function (config) {
     //config.toolbarCanCollapse = true;
     //config.extraPlugins = 'syntaxhighight';
     //config.skin = 'office2013';
-    
+
     //config.extraPlugins = 'youtube';
-   
+
     //config.extraPlugins = 'imageuploader';
     //config.extraPlugins = 'uploadcare';
+    config.autoParagraph = false;
     config.skin = 'moonocolor';
     config.syntaxhighlight_lang = 'csharp';
     config.syntaxhighlight_hideControls = true;

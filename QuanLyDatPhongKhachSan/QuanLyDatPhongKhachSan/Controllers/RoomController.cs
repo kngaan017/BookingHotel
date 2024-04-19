@@ -10,7 +10,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
     public class RoomController : Controller
     {
 
-        BookingHotel1Entities3 _db = new BookingHotel1Entities3();
+        BookingHotel1Entities2 _db = new BookingHotel1Entities2();
 
         // GET: Room
         public ActionResult RoomDetail(long id)

@@ -9,7 +9,7 @@ namespace QuanLyDatPhongKhachSan.Help
     {
         public List<int> GetAvailableBeds()
         {
-            using (var db = new BookingHotel1Entities3())
+            using (var db = new BookingHotel1Entities2())
             {
                 var beds = db.rooms.Select(r => r.bed).Distinct().ToList();
                 var validBeds = beds.Where(b => b != null).Select(b => b.Value).ToList();

@@ -11,7 +11,8 @@ namespace QuanLyDatPhongKhachSan.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace QuanLyDatPhongKhachSan.Models
     
         public int userID { get; set; }
         public string username { get; set; }
+        [DataType(DataType.Password)]
         public string password { get; set; }
         public string role { get; set; }
         public string email { get; set; }
@@ -31,6 +33,7 @@ namespace QuanLyDatPhongKhachSan.Models
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
+        public string LoginErrorMessage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<blog> blogs { get; set; }

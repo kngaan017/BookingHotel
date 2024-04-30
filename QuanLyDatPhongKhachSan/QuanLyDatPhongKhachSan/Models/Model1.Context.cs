@@ -13,10 +13,10 @@ namespace QuanLyDatPhongKhachSan.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BookingHotel1Entities3 : DbContext
+    public partial class BookingHotel1Entities5 : DbContext
     {
-        public BookingHotel1Entities3()
-            : base("name=BookingHotel1Entities3")
+        public BookingHotel1Entities5()
+            : base("name=BookingHotel1Entities5")
         {
         }
     
@@ -31,7 +31,6 @@ namespace QuanLyDatPhongKhachSan.Models
         public virtual DbSet<restaurant> restaurants { get; set; }
         public virtual DbSet<review> reviews { get; set; }
         public virtual DbSet<room> rooms { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
     }
 }

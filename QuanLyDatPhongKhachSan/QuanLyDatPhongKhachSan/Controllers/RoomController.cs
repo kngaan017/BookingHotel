@@ -1,16 +1,17 @@
 ﻿using QuanLyDatPhongKhachSan.Models;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+
 
 namespace QuanLyDatPhongKhachSan.Controllers
 {
     public class RoomController : Controller
     {
 
-        BookingHotel1Entities3 _db = new BookingHotel1Entities3();
+        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
 
         // GET: Room
         public ActionResult RoomDetail(long id)
@@ -20,6 +21,13 @@ namespace QuanLyDatPhongKhachSan.Controllers
                     select t;
             return View(v.FirstOrDefault());
         }
+        public ActionResult Rooms()
+        {
+            ViewBag.meta = "phong-o";
+            var rooms = _db.rooms.ToList();
+            return View(rooms);
+        }
+
 
         public ActionResult Booking(long id)
         {
@@ -29,11 +37,83 @@ namespace QuanLyDatPhongKhachSan.Controllers
             return View(v.FirstOrDefault());
         }
 
-        public ActionResult Rooms()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reserve(FormCollection form)
         {
-            ViewBag.meta = "phong-o";
-            var rooms = _db.rooms.ToList();
-            return View(rooms);
+            if (Session["IsLoggedIn"] != null && (bool)Session["IsLoggedIn"] == true)
+            {
+                int userID = (int)Session["UserID"];
+                string name = form["lname"];
+                string phone = form["phone"];
+                string email = form["email"];
+                string requests = form["requests"];
+                string startDateString = form["checkin_date"];
+                string endDateString = form["checkout_date"];
+                DateTime startDate = DateTime.Parse(startDateString);
+                DateTime endDate = DateTime.Parse(endDateString);
+                TimeSpan duration = endDate - startDate;
+                int numberOfNights = duration.Days;
+                float total = float.Parse(form["price"]) * numberOfNights;
+                int adults = int.Parse(form["adults"]);
+                int children = int.Parse(form["children"]);
+                int roomID = int.Parse(form["roomID"]);
+                bool surcharge = form["buffet"] == "yes";
+
+                var booking = new booking
+                {
+                    userID = userID,
+                    name = name,
+                    phone = phone,
+                    email = email,
+                    requests = requests,
+                    startDate = startDate,
+                    endDate = endDate,
+                    numberOfGuest = adults + children,
+                    roomID = roomID,
+                    status = "Pending",
+                    surcharge = surcharge,
+                    total = total
+                };
+
+                _db.bookings.Add(booking);
+                _db.SaveChanges();
+                var room = _db.rooms.FirstOrDefault(r => r.roomID == roomID);
+                if (room != null)
+                {
+                    room.available -= 1;
+                    _db.SaveChanges();
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult CancelBooking(int bookingId, int roomID)
+        {
+            var booking = _db.bookings.Find(bookingId);
+            if (booking == null)
+            {
+                return Json(new { success = false });
+            }
+            var room = _db.rooms.FirstOrDefault(r => r.roomID == roomID);
+            if (room != null)
+            {
+                room.available += 1;
+                _db.SaveChanges();
+            }
+
+            _db.bookings.Remove(booking);
+            _db.SaveChanges();
+
+            return Json(new { success = true });
         }
 
     }

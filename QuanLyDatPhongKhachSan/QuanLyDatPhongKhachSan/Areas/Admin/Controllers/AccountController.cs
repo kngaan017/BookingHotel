@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using QuanLyDatPhongKhachSan.Models;
 
 namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {
-        private BookingHotel1Entities3 db = new BookingHotel1Entities3();
+        private BookingHotel1Entities5 db = new BookingHotel1Entities5();
 
         // GET: Admin/Account
         public ActionResult Index()
@@ -54,7 +55,6 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(user);
         }
 

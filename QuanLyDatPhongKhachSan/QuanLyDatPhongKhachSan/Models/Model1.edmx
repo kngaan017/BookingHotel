@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingHotel1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingHotel1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="blogs">
           <Key>
             <PropertyRef Name="blogID" />
@@ -36,6 +36,7 @@
           <Property Name="name" Type="nvarchar" MaxLength="100" />
           <Property Name="phone" Type="nvarchar" MaxLength="10" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="surcharge" Type="bit" />
           <Property Name="requests" Type="nvarchar(max)" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
@@ -97,21 +98,12 @@
           <Property Name="description" Type="nvarchar(max)" />
           <Property Name="view" Type="nvarchar" MaxLength="50" />
           <Property Name="bed" Type="int" />
+          <Property Name="available" Type="int" />
           <Property Name="max" Type="nvarchar" MaxLength="50" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
           <Property Name="order" Type="int" />
           <Property Name="datebegin" Type="smalldatetime" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -119,7 +111,7 @@
           </Key>
           <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
           <Property Name="role" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -194,7 +186,6 @@
           <EntitySet Name="restaurant" EntityType="Self.restaurant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rooms" EntityType="Self.rooms" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_blogs_users" Association="Self.FK_blogs_users">
             <End Role="users" EntitySet="users" />
@@ -217,11 +208,39 @@
             <End Role="reviews" EntitySet="reviews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingHotel1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookingHotel1Entities5" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="blogs" EntityType="BookingHotel1Model.blog" />
+          <EntitySet Name="bookings" EntityType="BookingHotel1Model.booking" />
+          <EntitySet Name="menus" EntityType="BookingHotel1Model.menu" />
+          <EntitySet Name="restaurants" EntityType="BookingHotel1Model.restaurant" />
+          <EntitySet Name="reviews" EntityType="BookingHotel1Model.review" />
+          <EntitySet Name="rooms" EntityType="BookingHotel1Model.room" />
+          <EntitySet Name="users" EntityType="BookingHotel1Model.user" />
+          <AssociationSet Name="FK_blogs_users" Association="BookingHotel1Model.FK_blogs_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="blog" EntitySet="blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bookings_rooms1" Association="BookingHotel1Model.FK_bookings_rooms1">
+            <End Role="room" EntitySet="rooms" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bookings_users" Association="BookingHotel1Model.FK_bookings_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reviews_rooms" Association="BookingHotel1Model.FK_reviews_rooms">
+            <End Role="room" EntitySet="rooms" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reviews_users" Association="BookingHotel1Model.FK_reviews_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="blog">
           <Key>
             <PropertyRef Name="blogID" />
@@ -237,7 +256,7 @@
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="user" Relationship="Self.FK_blogs_users" FromRole="blogs" ToRole="users" />
+          <NavigationProperty Name="user" Relationship="BookingHotel1Model.FK_blogs_users" FromRole="blog" ToRole="user" />
         </EntityType>
         <EntityType Name="booking">
           <Key>
@@ -254,13 +273,14 @@
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surcharge" Type="Boolean" />
           <Property Name="requests" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="room" Relationship="Self.FK_bookings_rooms1" FromRole="bookings" ToRole="rooms" />
-          <NavigationProperty Name="user" Relationship="Self.FK_bookings_users" FromRole="bookings" ToRole="users" />
+          <NavigationProperty Name="room" Relationship="BookingHotel1Model.FK_bookings_rooms1" FromRole="booking" ToRole="room" />
+          <NavigationProperty Name="user" Relationship="BookingHotel1Model.FK_bookings_users" FromRole="booking" ToRole="user" />
         </EntityType>
         <EntityType Name="menu">
           <Key>
@@ -302,8 +322,8 @@
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="room" Relationship="Self.FK_reviews_rooms" FromRole="reviews" ToRole="rooms" />
-          <NavigationProperty Name="user" Relationship="Self.FK_reviews_users" FromRole="reviews" ToRole="users" />
+          <NavigationProperty Name="room" Relationship="BookingHotel1Model.FK_reviews_rooms" FromRole="review" ToRole="room" />
+          <NavigationProperty Name="user" Relationship="BookingHotel1Model.FK_reviews_users" FromRole="review" ToRole="user" />
         </EntityType>
         <EntityType Name="room">
           <Key>
@@ -319,264 +339,216 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="view" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="bed" Type="Int32" />
+          <Property Name="available" Type="Int32" />
           <Property Name="max" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="bookings" Relationship="Self.FK_bookings_rooms1" FromRole="rooms" ToRole="bookings" />
-          <NavigationProperty Name="reviews" Relationship="Self.FK_reviews_rooms" FromRole="rooms" ToRole="reviews" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="bookings" Relationship="BookingHotel1Model.FK_bookings_rooms1" FromRole="room" ToRole="booking" />
+          <NavigationProperty Name="reviews" Relationship="BookingHotel1Model.FK_reviews_rooms" FromRole="room" ToRole="review" />
         </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="userID" />
           </Key>
           <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="role" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="blogs" Relationship="Self.FK_blogs_users" FromRole="users" ToRole="blogs" />
-          <NavigationProperty Name="bookings" Relationship="Self.FK_bookings_users" FromRole="users" ToRole="bookings" />
-          <NavigationProperty Name="reviews" Relationship="Self.FK_reviews_users" FromRole="users" ToRole="reviews" />
+          <NavigationProperty Name="blogs" Relationship="BookingHotel1Model.FK_blogs_users" FromRole="user" ToRole="blog" />
+          <NavigationProperty Name="bookings" Relationship="BookingHotel1Model.FK_bookings_users" FromRole="user" ToRole="booking" />
+          <NavigationProperty Name="reviews" Relationship="BookingHotel1Model.FK_reviews_users" FromRole="user" ToRole="review" />
         </EntityType>
         <Association Name="FK_blogs_users">
-          <End Role="users" Type="Self.user" Multiplicity="1" />
-          <End Role="blogs" Type="Self.blog" Multiplicity="*" />
+          <End Type="BookingHotel1Model.user" Role="user" Multiplicity="1" />
+          <End Type="BookingHotel1Model.blog" Role="blog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="user">
               <PropertyRef Name="userID" />
             </Principal>
-            <Dependent Role="blogs">
+            <Dependent Role="blog">
               <PropertyRef Name="userID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_bookings_rooms1">
-          <End Role="rooms" Type="Self.room" Multiplicity="1" />
-          <End Role="bookings" Type="Self.booking" Multiplicity="*" />
+          <End Type="BookingHotel1Model.room" Role="room" Multiplicity="1" />
+          <End Type="BookingHotel1Model.booking" Role="booking" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="rooms">
+            <Principal Role="room">
               <PropertyRef Name="roomID" />
             </Principal>
-            <Dependent Role="bookings">
+            <Dependent Role="booking">
               <PropertyRef Name="roomID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_bookings_users">
-          <End Role="users" Type="Self.user" Multiplicity="1" />
-          <End Role="bookings" Type="Self.booking" Multiplicity="*" />
+          <End Type="BookingHotel1Model.user" Role="user" Multiplicity="1" />
+          <End Type="BookingHotel1Model.booking" Role="booking" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="user">
               <PropertyRef Name="userID" />
             </Principal>
-            <Dependent Role="bookings">
+            <Dependent Role="booking">
               <PropertyRef Name="userID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_reviews_rooms">
-          <End Role="rooms" Type="Self.room" Multiplicity="1" />
-          <End Role="reviews" Type="Self.review" Multiplicity="*" />
+          <End Type="BookingHotel1Model.room" Role="room" Multiplicity="1" />
+          <End Type="BookingHotel1Model.review" Role="review" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="rooms">
+            <Principal Role="room">
               <PropertyRef Name="roomID" />
             </Principal>
-            <Dependent Role="reviews">
+            <Dependent Role="review">
               <PropertyRef Name="roomID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_reviews_users">
-          <End Role="users" Type="Self.user" Multiplicity="1" />
-          <End Role="reviews" Type="Self.review" Multiplicity="*" />
+          <End Type="BookingHotel1Model.user" Role="user" Multiplicity="1" />
+          <End Type="BookingHotel1Model.review" Role="review" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="user">
               <PropertyRef Name="userID" />
             </Principal>
-            <Dependent Role="reviews">
+            <Dependent Role="review">
               <PropertyRef Name="userID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BookingHotel1Entities3" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="blogs" EntityType="Self.blog" />
-          <EntitySet Name="bookings" EntityType="Self.booking" />
-          <EntitySet Name="menus" EntityType="Self.menu" />
-          <EntitySet Name="restaurants" EntityType="Self.restaurant" />
-          <EntitySet Name="reviews" EntityType="Self.review" />
-          <EntitySet Name="rooms" EntityType="Self.room" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="users" EntityType="Self.user" />
-          <AssociationSet Name="FK_blogs_users" Association="Self.FK_blogs_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="blogs" EntitySet="blogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_bookings_rooms1" Association="Self.FK_bookings_rooms1">
-            <End Role="rooms" EntitySet="rooms" />
-            <End Role="bookings" EntitySet="bookings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_bookings_users" Association="Self.FK_bookings_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="bookings" EntitySet="bookings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reviews_rooms" Association="Self.FK_reviews_rooms">
-            <End Role="rooms" EntitySet="rooms" />
-            <End Role="reviews" EntitySet="reviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reviews_users" Association="Self.FK_reviews_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="reviews" EntitySet="reviews" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BookingHotel1ModelStoreContainer" CdmEntityContainer="BookingHotel1Entities3">
+        <EntityContainerMapping StorageEntityContainer="BookingHotel1ModelStoreContainer" CdmEntityContainer="BookingHotel1Entities5">
           <EntitySetMapping Name="blogs">
             <EntityTypeMapping TypeName="BookingHotel1Model.blog">
               <MappingFragment StoreEntitySet="blogs">
-                <ScalarProperty Name="blogID" ColumnName="blogID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="tag" ColumnName="tag" />
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="publishDate" ColumnName="publishDate" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="publishDate" ColumnName="publishDate" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="blogID" ColumnName="blogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="BookingHotel1Model.booking">
               <MappingFragment StoreEntitySet="bookings">
-                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="roomID" ColumnName="roomID" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-                <ScalarProperty Name="numberOfGuest" ColumnName="numberOfGuest" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="requests" ColumnName="requests" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="requests" ColumnName="requests" />
+                <ScalarProperty Name="surcharge" ColumnName="surcharge" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="numberOfGuest" ColumnName="numberOfGuest" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="menus">
             <EntityTypeMapping TypeName="BookingHotel1Model.menu">
               <MappingFragment StoreEntitySet="menu">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="restaurants">
             <EntityTypeMapping TypeName="BookingHotel1Model.restaurant">
               <MappingFragment StoreEntitySet="restaurant">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="reviews">
             <EntityTypeMapping TypeName="BookingHotel1Model.review">
               <MappingFragment StoreEntitySet="reviews">
-                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="roomID" ColumnName="roomID" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="rooms">
             <EntityTypeMapping TypeName="BookingHotel1Model.room">
               <MappingFragment StoreEntitySet="rooms">
-                <ScalarProperty Name="roomID" ColumnName="roomID" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="size" ColumnName="size" />
-                <ScalarProperty Name="img1" ColumnName="img1" />
-                <ScalarProperty Name="img2" ColumnName="img2" />
-                <ScalarProperty Name="img3" ColumnName="img3" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="view" ColumnName="view" />
-                <ScalarProperty Name="bed" ColumnName="bed" />
-                <ScalarProperty Name="max" ColumnName="max" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BookingHotel1Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="bed" ColumnName="bed" />
+                <ScalarProperty Name="view" ColumnName="view" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="img3" ColumnName="img3" />
+                <ScalarProperty Name="img2" ColumnName="img2" />
+                <ScalarProperty Name="img1" ColumnName="img1" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="BookingHotel1Model.user">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

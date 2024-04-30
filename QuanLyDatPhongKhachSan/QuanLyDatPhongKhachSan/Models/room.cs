@@ -31,6 +31,7 @@ namespace QuanLyDatPhongKhachSan.Models
         public string description { get; set; }
         public string view { get; set; }
         public Nullable<int> bed { get; set; }
+        public Nullable<int> available { get; set; }
         public string max { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }

@@ -38,11 +38,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            int stt = 1;
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.id)
+                                    @stt
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.name)
@@ -54,8 +57,8 @@
                                     @Html.DisplayFor(modelItem => item.price)
                                 </td>
                                 @*<td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>*@
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
@@ -77,6 +80,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            stt++;
                         }
                     </tbody>
                 </table>

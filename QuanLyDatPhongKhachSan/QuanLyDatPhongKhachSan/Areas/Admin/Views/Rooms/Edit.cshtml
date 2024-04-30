@@ -44,15 +44,13 @@
                     @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 1", htmlAttributes: new { @class = "control-label" })</strong>
+                    <strong>@Html.Label("Available", htmlAttributes: new { @class = "control-label" })</strong>
                 </div>
-                <div class="col-md-5">
-                    @{
-                        string imgName1 = string.IsNullOrEmpty(Model.img1) ? "No file chosen" : Model.img1;
-                    }
-                    <input type="file" name="img1" id="img1" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview1')" />
-                    <img id="imgPreview1" src="~/Areas/Admin/Content/upload/img/room/@Model.img1" width="50px" height="50px" />
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.available, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.available, "", new { @class = "text-danger" })
                 </div>
+                
             </div>
         </div>
         <div class="form-group">
@@ -65,15 +63,16 @@
                     @Html.ValidationMessageFor(model => model.bed, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 2", htmlAttributes: new { @class = "control-label" })</strong>
+                    <strong>@Html.Label("Ảnh 1", htmlAttributes: new { @class = "control-label" })</strong>
                 </div>
                 <div class="col-md-5">
                     @{
-                        string imgName2 = string.IsNullOrEmpty(Model.img2) ? "No file chosen" : Model.img2;
+                        string imgName1 = string.IsNullOrEmpty(Model.img1) ? "No file chosen" : Model.img1;
                     }
-                    <input type="file" name="img2" id="img2" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview2')" />
-                    <img id="imgPreview2" src="~/Areas/Admin/Content/upload/img/room/@Model.img2" width="50px" height="50px" />
+                    <input type="file" name="img1" id="img1" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview1')" />
+                    <img id="imgPreview1" src="~/Areas/Admin/Content/upload/img/room/@Model.img1" width="50px" height="50px" />
                 </div>
+                
             </div>
         </div>
         <div class="form-group">
@@ -86,15 +85,16 @@
                     @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 3", htmlAttributes: new { @class = "control-label" })</strong>
+                    <strong>@Html.Label("Ảnh 2", htmlAttributes: new { @class = "control-label" })</strong>
                 </div>
                 <div class="col-md-5">
                     @{
-                        string imgName3 = string.IsNullOrEmpty(Model.img3) ? "No file chosen" : Model.img3;
+                        string imgName2 = string.IsNullOrEmpty(Model.img2) ? "No file chosen" : Model.img2;
                     }
-                    <input type="file" name="img3" id="img3" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview3')" />
-                    <img id="imgPreview3" src="~/Areas/Admin/Content/upload/img/room/@Model.img3" width="50px" height="50px" />
+                    <input type="file" name="img2" id="img2" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview2')" />
+                    <img id="imgPreview2" src="~/Areas/Admin/Content/upload/img/room/@Model.img2" width="50px" height="50px" />
                 </div>
+                
             </div>
         </div>
 
@@ -107,7 +107,17 @@
                     @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
                 </div>
-        </div>
+                <div class="col-md-1 text-right align-self-center">
+                    <strong>@Html.Label("Ảnh 3", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-5">
+                    @{
+                        string imgName3 = string.IsNullOrEmpty(Model.img3) ? "No file chosen" : Model.img3;
+                    }
+                    <input type="file" name="img3" id="img3" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="displaySelectedImage(event, 'imgPreview3')" />
+                    <img id="imgPreview3" src="~/Areas/Admin/Content/upload/img/room/@Model.img3" width="50px" height="50px" />
+                </div>
+            </div>
         <br>
         <div class="form-group">
             <div class="row">
@@ -162,7 +172,7 @@
             </div>
         </div>
     </div>
-        </div>
+</div>
 }
 
 

@@ -4,4 +4,24 @@
     {
         <li class="nav-item"><a href="/@i.meta" class="nav-link"> @i.name</a></li>
     }
+    @if (Session["IsLoggedIn"] != null && (bool)Session["IsLoggedIn"])
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Session["UserName"]
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="/lich-su-dat-phong">History</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/Account/Logout">Sign Out</a>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/dang-nhap">Sign In</a>
+        </li>
+    }
 </ul>

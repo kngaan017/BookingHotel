@@ -92,6 +92,14 @@ namespace QuanLyDatPhongKhachSan
             },
             namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
 
+            routes.MapRoute("History", "{type}/{meta}",
+            new { controller = "Account", action = "History", meta = UrlParameter.Optional },
+            new RouteValueDictionary
+            {
+                { "type", "lich-su-dat-phong" }
+            },
+            namespaces: new[] { "QuanLyDatPhongKhachSan.Controllers" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

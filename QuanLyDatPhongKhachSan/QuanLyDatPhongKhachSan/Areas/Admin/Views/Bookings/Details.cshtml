@@ -129,7 +129,15 @@
     </div>
     <div class="form-group">
         <div class="row">
-            
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Gói buffet", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @{
+                    bool surcharge = (Model.surcharge.GetValueOrDefault(false) ? true : false);
+                }
+                @Html.CheckBoxFor(model => surcharge, new { disabled = "disabled" })
+            </div>
             <div class="col-md-2 text-right align-self-center">
                 <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
             </div>

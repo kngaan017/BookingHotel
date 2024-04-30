@@ -31,6 +31,7 @@
     <Property Name="name" Type="nvarchar" MaxLength="100" />
     <Property Name="phone" Type="nvarchar" MaxLength="10" />
     <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="surcharge" Type="bit" />
     <Property Name="requests" Type="nvarchar(max)" />
     <Property Name="meta" Type="nvarchar" MaxLength="50" />
     <Property Name="hide" Type="bit" />
@@ -92,21 +93,12 @@
     <Property Name="description" Type="nvarchar(max)" />
     <Property Name="view" Type="nvarchar" MaxLength="50" />
     <Property Name="bed" Type="int" />
+    <Property Name="available" Type="int" />
     <Property Name="max" Type="nvarchar" MaxLength="50" />
     <Property Name="meta" Type="nvarchar" MaxLength="50" />
     <Property Name="hide" Type="bit" />
     <Property Name="order" Type="int" />
     <Property Name="datebegin" Type="smalldatetime" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="users">
     <Key>
@@ -114,7 +106,7 @@
     </Key>
     <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="password" Type="varchar(max)" Nullable="false" />
     <Property Name="role" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="email" Type="nvarchar" MaxLength="100" />
     <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -189,7 +181,6 @@
     <EntitySet Name="restaurant" EntityType="Self.restaurant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="rooms" EntityType="Self.rooms" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_blogs_users" Association="Self.FK_blogs_users">
       <End Role="users" EntitySet="users" />

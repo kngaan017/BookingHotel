@@ -28,6 +28,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Username</th>
                             <th>Role</th>
                             <th>Email</th>
@@ -39,9 +40,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            int stt = 1; 
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @stt
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.username)
                                 </td>
@@ -63,12 +70,12 @@
                                 <td>
                                     @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
-                          
+
                                 <td>
                                     @*<a href="@Url.Action("Edit","accounts",  new { id = item.userID })" class="btn btn-outline-dark">
-                                        <i class='fas fa-pencil-alt'></i>
-                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                    </a>*@
+                        <i class='fas fa-pencil-alt'></i>
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </a>*@
                                     <a href="@Url.Action("Details",  new { id = item.userID })" class="btn btn-outline-primary">
                                         <i class='fas fa-info-circle'></i>
                                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -79,6 +86,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            stt++;
                         }
                     </tbody>
                 </table>

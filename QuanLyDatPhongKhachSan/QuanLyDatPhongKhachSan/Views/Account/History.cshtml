@@ -1,0 +1,135 @@
+﻿@model List<QuanLyDatPhongKhachSan.Models.booking>
+
+
+@{
+    ViewBag.Title = "History";
+}
+
+
+<title>@ViewBag.Title</title>
+<div class="hero-wrap" style="background-image: url('../Content/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                <div class="text">
+                    <p class="breadcrumbs mb-2"><span class="mr-2"><a href="../Home/Index">Home</a></span> </p>
+                    <h1 class="mb-4 bread">Booking History</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            @if (Model.Any())
+            {
+                <div class="col-lg">
+                    <div class="row">
+                        @foreach (var i in Model)
+                        {
+                            <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                                <div class="room">
+                                    <a class="img d-flex justify-content-center align-items-center" style="background-image: url(/Areas/Admin/Content/upload/img/room/@i.room.img1);">
+                                    </a>
+                                    <div class="text p-3 text-center">
+                                        <h3 class="mb-3">@i.room.type</h3>
+
+                                        <ul class="list">
+                                            <li class="text-left"><span>Start date: </span>@(i.startDate.HasValue ? i.startDate.Value.ToString("MM/dd/yyyy") : "")</li>
+                                            <li class="text-left"><span>End date: </span>@(i.endDate.HasValue ? i.endDate.Value.ToString("MM/dd/yyyy") : "")</li>
+                                            <li class="text-left"><span>Total: </span>$@i.total</li>
+                                            <li class="text-left">
+                                                <span>
+                                                    Buffet:
+                                                    @if (i.surcharge == true)
+                                                    {
+                                                        <span style="color: black;">Yes</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="color: black;">No</span>
+                                                    }
+                                                </span>
+                                            </li>
+                                            @if (i.requests == "")
+                                            {
+                                                <li class="text-left"><span>Requests: </span>None</li>
+                                            }
+                                            else
+                                            {
+                                                <li class="text-left"><span>Requests: </span>@i.requests</li>
+
+                                            }
+                                            <li class="text-left"><span>Status: </span>@i.status</li>
+
+                                            @if (i.status == "Pending")
+                                            {
+                                                <li class="text-right">
+                                                    <button class="btn btn-danger cancel-btn" data-id="@i.bookingID" data-room-id="@i.roomID">Cancel</button>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg">
+                    <p>No result found.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this booking?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmCancel">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.cancel-btn').click(function () {
+            var bookingId = $(this).data('id');
+            var roomId = $(this).data('room-id');
+
+            $('#confirmationModal').modal('show');
+
+            $('#confirmCancel').click(function () {
+                $.post('/Room/CancelBooking', { bookingId: bookingId, roomId: roomId })
+                    .done(function (response) {
+                        if (response.success) {
+                            alert('Booking canceled successfully.');
+                            location.reload();
+                        } else {
+                            alert('Failed to cancel the booking.');
+                        }
+                    })
+                    .fail(function () {
+                        alert('An error occurred while canceling the booking.');
+                    });
+            });
+        });
+    });
+</script>
+

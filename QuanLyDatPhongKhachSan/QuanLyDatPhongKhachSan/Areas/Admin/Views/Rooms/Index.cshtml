@@ -57,11 +57,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            int stt = 1;
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.roomID)
+                                    @stt
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.type)
@@ -100,6 +103,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            stt++;
                         }
                     </tbody>
                 </table>

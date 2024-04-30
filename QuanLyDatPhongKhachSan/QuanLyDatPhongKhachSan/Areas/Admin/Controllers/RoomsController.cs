@@ -15,7 +15,7 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
 {
     public class RoomsController : Controller
     {
-        private BookingHotel1Entities3 db = new BookingHotel1Entities3();
+        private BookingHotel1Entities5 db = new BookingHotel1Entities5();
 
         // GET: Admin/Rooms
         public ActionResult Index()
@@ -58,7 +58,7 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "roomID,type,price,size,img1,img2,img3,description,view,bed,max,meta,hide,order,datebegin")] room room, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3, string bed)
+        public ActionResult Create([Bind(Include = "roomID,type,price,size,img1,img2,img3,description,view,bed,available,max,meta,hide,order,datebegin")] room room, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3, string bed)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "roomID,type,price,size,img1,img2,img3,description,view,bed,max,meta,hide,order,datebegin")] room room, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
+        public ActionResult Edit([Bind(Include = "roomID,type,price,size,img1,img2,img3,description,view,bed,available,max,meta,hide,order,datebegin")] room room, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
         {
             try
             {
@@ -182,6 +182,11 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
                         temp.img3 = filename;
                     }
                     temp.type = room.type;
+                    temp.max = room.max;
+                    temp.available = room.available;
+                    temp.bed = room.bed;
+                    temp.view = room.view;
+                    temp.size = room.size;
                     temp.price = room.price;
                     temp.description = room.description;
                     temp.meta = Functions.ConvertToUnSign(room.meta); //convert Tiếng Việt không dấu

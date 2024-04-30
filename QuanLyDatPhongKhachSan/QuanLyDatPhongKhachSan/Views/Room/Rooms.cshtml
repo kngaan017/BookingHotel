@@ -39,12 +39,6 @@
                     <form action="#">
                         <div class="fields">
                             <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control checkin_date" placeholder="Check In Date">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control checkout_date" placeholder="Check Out Date">
-                            </div>
-                            <div class="form-group">
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="" id="" class="form-control">
@@ -67,6 +61,33 @@
                                             {
                                                 <option value="@max">@max</option>
                                             }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="" id="" class="form-control">
+                                        <option value="" disabled selected>Bed</option>
+                                        @{
+                                            var distinctBedValues = Model.Select(r => r.bed).Distinct();
+                                            foreach (var bed in distinctBedValues)
+                                            {
+                                                <option value="@bed">@bed</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="" id="" class="form-control">
+                                        <option value="" disabled selected>Size</option>
+                                        @foreach (var room in Model)
+                                        {
+                                            <option value="@room.size">@room.size</option>
                                         }
                                     </select>
                                 </div>

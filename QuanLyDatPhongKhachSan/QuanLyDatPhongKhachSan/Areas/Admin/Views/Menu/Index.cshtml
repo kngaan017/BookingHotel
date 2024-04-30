@@ -1,0 +1,98 @@
+﻿@model IEnumerable<QuanLyDatPhongKhachSan.Models.menu>
+<title>@ViewBag.Title</title>
+@section _Header {
+    <!-- Custom styles for this page -->
+    <link href="~/Areas/Admin/Content/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Quản lý menu</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @*<p class="text-right">
+                        <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+                    </p>*@
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Name</th>
+                            <th>Link</th>
+                            <th>Meta</th>
+                            <th>Hide</th>
+                            <th>Order</th>
+                            <th>DateBegin</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int stt = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @stt
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.link)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.meta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.hide)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order)
+                                </td>
+
+                                <td>
+                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
+                                </td>
+
+                                <td>
+
+                                    <a href="@Url.Action("Edit","menu",  new { id = item.id })" class="btn btn-outline-dark">
+                                        <i class='fas fa-pencil-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Details",  new { id = item.id })" class="btn btn-outline-primary">
+                                        <i class='fas fa-info-circle'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="@Url.Action("Delete",  new { id = item.id })" class="btn btn-outline-danger">
+                                        <i class='fas fa-trash-alt'></i>
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section _Footer {
+    <!-- Page level plugins -->
+    <script src="~/Areas/Admin/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/Admin/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Areas/Admin/Content/js/demo/datatables-demo.js"></script>
+}

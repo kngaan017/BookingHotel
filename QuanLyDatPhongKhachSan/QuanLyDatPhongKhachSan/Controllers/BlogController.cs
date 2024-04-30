@@ -14,7 +14,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
             return View();
         }
         // GET: Blog
-        BookingHotel1Entities3 _db = new BookingHotel1Entities3();
+        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
 
         public ActionResult BlogDetail(long id)
         {

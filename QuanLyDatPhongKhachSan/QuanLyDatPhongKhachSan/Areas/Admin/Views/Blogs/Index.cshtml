@@ -25,7 +25,7 @@
                     <div class="col-md-4">
                         <input type="hidden" id="selectedBedValue" value="" />
                         <!-- Phần tử Chọn số giường -->
-                        <label for="bedsFilter">Chọn số giường:</label>
+                        <label for="bedsFilter">Chọn tag:</label>
                         <select id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
                             <option value="">Tất cả</option>
                             @foreach (var tag in ViewBag.MaxValues)
@@ -46,21 +46,22 @@
                         <tr>
                             <th>STT</th>
                             <th>Title</th>
-                            @*<th>Content</th>*@
                             <th>Image</th>
                             <th>Tag</th>
                             <th>Publish Date</th>
                             <th>Meta</th>
                             <th>Hide</th>
-                            <th>Order</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            int stt = 1;
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.blogID)</td>
+                                <td>@stt
                                 <td>
                                     @{
                                         string title = item.title;
@@ -70,8 +71,8 @@
                                     @Html.DisplayFor(modelItem => displayedTitle)
                                 </td>
                                 @*<td>
-                            @Html.DisplayFor(modelItem => item.content)
-                        </td>*@
+                    @Html.DisplayFor(modelItem => item.content)
+                </td>*@
 
                                 <td>
                                     <img src="~/Areas/Admin/Content/upload/img/blog/@item.img" width="50px" height="50px" />
@@ -88,15 +89,7 @@
                                 <td>
                                     @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.order)
-                                </td>
-                                @*<td>
-                            @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
-                        </td>*@
-                                @*<td>
-                            @Html.DisplayFor(modelItem => item.user.username)
-                        </td>*@
+                               
                                 <td>
                                     <a href="@Url.Action("Edit","blogs",  new { id = item.blogID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>
@@ -112,6 +105,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            stt++;
                         }
                     </tbody>
                 </table>

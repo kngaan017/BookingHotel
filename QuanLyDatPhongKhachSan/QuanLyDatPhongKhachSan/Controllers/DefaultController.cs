@@ -11,7 +11,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
     {
 
 
-        BookingHotel1Entities3 _db = new BookingHotel1Entities3();
+        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
         public ActionResult getRoom()
         {
             ViewBag.meta = "phong-o";

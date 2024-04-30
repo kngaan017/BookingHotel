@@ -25,6 +25,7 @@ namespace QuanLyDatPhongKhachSan.Models
         public string name { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
+        public Nullable<bool> surcharge { get; set; }
         public string requests { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }

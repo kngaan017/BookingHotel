@@ -19,7 +19,6 @@
     </div>
 </div>
 
-
 <section class="ftco-section">
     <div class="container">
         <div class="row probootstrap-gutter40">
@@ -43,31 +42,28 @@
                         <ul class="list">
                             <li><span>Max: </span> @Model.max</li>
                             <li><span>Size: </span>@Model.size</li>
+                            <h5>Available: <span style="color: red;">@Model.available room</span></h5>
                         </ul>
                         <ul class="list ml-md-5">
                             <li><span>View: </span>@Model.view</li>
                             <li><span>Bed: </span>@Model.bed</li>
                         </ul>
+
                     </div>
                     <hr>
-                    <h3>Price: @Model.price $</h3>
+                    <h3>Price: $@Model.price/day</h3>
                     <p>@Model.description</p>
                 </div>
             </div>
             <div class="col-md-5">
                 <h2 class="mt0">Reservation Form</h2>
-                <form action="#" method="post" class="probootstrap-form">
+                <form id="reservationForm" method="post" action="@Url.Action("Reserve", "Room")" class="probootstrap-form">
+                    @Html.AntiForgeryToken()
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <div class="form-group">
-                                <label for="fname">First Name</label>
-                                <input type="text" class="form-control" id="fname" name="fname">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname">
+                                <label for="lname">Full Name</label>
+                                <input type="text" class="form-control" id="lname" name="lname" required>
                             </div>
                         </div>
                     </div>
@@ -76,7 +72,7 @@
                             <div class="form-group">
                                 <label for="phonenumber">Phone number <i class="icon icon-mobile-phone"></i> </label>
                                 <div class="form-field">
-                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
                                 </div>
                             </div>
                         </div>
@@ -84,35 +80,24 @@
                             <div class="form-group">
                                 <label for="email">Email <i class="icon icon-mail-forward"></i></label>
                                 <div class="form-field">
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="room">Room</label>
-                        <div class="form-field">
-                            <select name="room" id="room" class="form-control">
-                                <option value="">Select a Room</option>
-                                <option value="1">Classic Room</option>
-                                <option value="2">Ultra Superior Room</option>
-                                <option value="3">Grand Deluxe Room</option>
-                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="#">Check-in Date</label>
-                                <input type="text" class="form-control checkin_date" >
-                                
+                                <input type="date" class="form-control" id="checkin_date" name="checkin_date" required>
+                                <span id="checkin_error" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="#">Check-out Date</label>
-                                <input type="text" class="form-control checkout_date">
+                                <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
+                                <span id="checkout_error" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -122,11 +107,10 @@
                             <div class="form-group">
                                 <label for="adults">Adults</label>
                                 <div class="form-field">
-                                    <select name="adults" id="adults" class="form-control">
+                                    <select name="adults" id="adults" class="form-control" required>
+                                        <option value="" disabled selected>Number of adults</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4+</option>
                                     </select>
                                 </div>
                             </div>
@@ -135,18 +119,41 @@
                             <div class="form-group">
                                 <label for="children">Children</label>
                                 <div class="form-field">
-                                    <select name="children" id="children" class="form-control">
+                                    <select name="children" id="children" class="form-control" required>
+                                        <option value="" disabled selected>Number of childrens</option>
                                         <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4+</option>
                                     </select>
                                 </div>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="requests">Requests</label>
+                                <input type="text" class="form-control" id="requests" name="requests">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="buffet" class="mr-2">Buffet at the restaurant?</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="buffet" id="buffet_yes" value="yes" onchange="calculateBookingDetails()">
+                            <label class="form-check-label" for="buffet_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="buffet" id="buffet_no" value="no" onchange="calculateBookingDetails()">
+                            <label class="form-check-label" for="buffet_no">No</label>
+                        </div>
+                    </div>
+                    <hr />
+                    <h6>Booking duration: <span id="booking_duration"></span></h6>
+                    <h6>Surcharge: <span id="surcharge"></span></h6>
+                    <h6>Total amount: <span id="total_amount"></span></h6>
+                    <input type="hidden" name="roomID" value="@Model.roomID" />
+                    <input type="hidden" name="price" value="@Model.price" />
+
+                    <div class="form-group text-right">
                         <input type="submit" class="btn btn-primary btn-lg" id="submit" name="submit" value="Reserve">
                     </div>
                 </form>
@@ -154,7 +161,6 @@
         </div>
     </div>
 </section> <!-- .section -->
-
 
 
 <section class="instagram pt-5">
@@ -203,3 +209,60 @@
         </div>
     </div>
 </section>
+<script>
+    function validateDates() {
+        var checkinDate = new Date(document.getElementById("checkin_date").value);
+        var checkoutDate = new Date(document.getElementById("checkout_date").value);
+        var currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        if (checkinDate < currentDate) {
+            document.getElementById("checkin_error").textContent = "Check-in date cannot be before today";
+            return false;
+        } else {
+            document.getElementById("checkin_error").textContent = "";
+        }
+
+        if (checkoutDate <= checkinDate) {
+            document.getElementById("checkout_error").textContent = "Check-out date must be after check-in date";
+            return false;
+        } else {
+            document.getElementById("checkout_error").textContent = "";
+        }
+
+        return true;
+    }
+
+    document.getElementById("checkin_date").addEventListener("input", function () {
+        validateDates();
+    });
+
+    document.getElementById("checkout_date").addEventListener("input", function () {
+        validateDates();
+    });
+    function calculateBookingDetails() {
+        var checkin = new Date(document.getElementById("checkin_date").value);
+        var checkout = new Date(document.getElementById("checkout_date").value);
+        var duration = (checkout - checkin) / (1000 * 3600 * 24); // Tính số ngày đặt phòng
+        document.getElementById("booking_duration").innerText = duration + " days";
+
+        var surcharge = 0;
+        if (document.getElementById("buffet_yes").checked) {
+            surcharge = 200;
+        }
+        document.getElementById("surcharge").innerText = "$" + surcharge;
+        calculateTotalAmount();
+    }
+    function calculateTotalAmount() {
+        var pricePerDay = parseFloat("@Model.price");
+        var duration = parseFloat(document.getElementById("booking_duration").innerText.split(" ")[0]); // Lấy số ngày từ chuỗi "X days"
+        var surcharge = parseFloat(document.getElementById("surcharge").innerText.replace("$", ""));
+
+        var totalAmount = (pricePerDay * duration) + surcharge;
+
+        document.getElementById("total_amount").innerText = "$" + totalAmount.toFixed(2);
+    }
+
+</script>
+
+

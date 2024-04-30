@@ -12,150 +12,168 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="container col-lg-10">
-        <h4><b>Thêm phòng</b></h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="container col-lg-10">
+    <h4><b>Thêm phòng</b></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Số giường", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @{
-                        var selectedBed = Session["selectedBed"] as string;
-                        var availableBeds = roomService.GetAvailableBeds().Select(b => new SelectListItem
-                        {
-                            Text = b.ToString(),
-                            Value = b.ToString(),
-                            Selected = b.ToString() == selectedBed
-                        });
-                    }
-                    @Html.DropDownList("SelectedBed", availableBeds, "Chọn số giường", new { @class = "form-control", @required = "required" })
-                    @Html.ValidationMessageFor(model => model.bed, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Số giường", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @{
+                    var selectedBed = Session["selectedBed"] as string;
+                    var availableBeds = roomService.GetAvailableBeds().Select(b => new SelectListItem
+                    {
+                        Text = b.ToString(),
+                        Value = b.ToString(),
+                        Selected = b.ToString() == selectedBed
+                    });
+                }
+                @Html.DropDownList("SelectedBed", availableBeds, "Chọn số giường", new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(model => model.bed, "", new { @class = "text-danger" })
+            </div>
 
-                <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("View", htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.view, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.view, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-md-1 text-right align-self-center">
+                <strong>@Html.Label("View", htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.view, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.view, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Loại phòng", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 1", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-5">
-                    <input type="file" name="img1" id="img1" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview1')" style="margin-right: 10px;" />
-                    <img id="imgPreview1" src="#" alt="Ảnh 1" style="display: none; width: 50px; height: 50px;" />
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Tên phòng", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1 text-right align-self-center">
+                <strong>@Html.Label("Available", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.available, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.available, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Diện tích", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                    @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 2", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-5">
-                    <input type="file" name="img2" id="img2" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview2')" style="margin-right: 10px;" />
-                    <img id="imgPreview2" src="#" alt="Ảnh 2" style="display: none; width: 50px; height: 50px;" />
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Loại phòng", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.max, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.max, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1 text-right align-self-center">
+                <strong>@Html.Label("Ảnh 1", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-5">
+                <input type="file" name="img1" id="img1" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview1')" style="margin-right: 10px;" />
+                <img id="imgPreview1" src="#" alt="Ảnh 1" style="display: none; width: 50px; height: 50px;" />
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Giá", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-1 text-right align-self-center">
-                    <strong>@Html.Label("Ảnh 3", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-5">
-                    <input type="file" name="img3" id="img3" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview3')" style="margin-right: 10px;" />
-                    <img id="imgPreview3" src="#" alt="Ảnh 3" style="display: none; width: 50px; height: 50px;" />
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Diện tích", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1 text-right align-self-center">
+                <strong>@Html.Label("Ảnh 2", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-5">
+                <input type="file" name="img2" id="img2" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview2')" style="margin-right: 10px;" />
+                <img id="imgPreview2" src="#" alt="Ảnh 2" style="display: none; width: 50px; height: 50px;" />
             </div>
         </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Giá", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1 text-right align-self-center">
+                <strong>@Html.Label("Ảnh 3", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-5">
+                <input type="file" name="img3" id="img3" accept=".jpg,.png,.gif,.jpeg,.bmp" required onchange="displaySelectedImage(event, 'imgPreview3')" style="margin-right: 10px;" />
+                <img id="imgPreview3" src="#" alt="Ảnh 3" style="display: none; width: 50px; height: 50px;" />
+            </div>
+        </div>
+    </div>
 
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Mô tả phòng ở", htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
-                </div>
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @required = true } })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Mô tả phòng ở", htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
+            </div>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
-                </div>
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label", @required = "required" })</strong>
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-2 text-right align-self-center">
-                    <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
-                </div>
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="hide" name="hide" value="true" />
-                        </label>
-                        @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label" })</strong>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <input type="submit" value="Create" class="btn btn-primary text-right" />
-                    @Html.ActionLink("Back to List", "Index")
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="hide" name="hide" value="true" />
+                    </label>
+                    @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="submit" value="Create" class="btn btn-primary text-right" />
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+</div>
 }
 <script>
     window.onload = function () {

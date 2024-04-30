@@ -41,11 +41,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            int stt = 1;
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.reviewID)
+                                    @stt
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.rating)
@@ -61,7 +64,7 @@
                                 <td>
                                     @(item.reviewDate.HasValue ? item.reviewDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
-                                
+
                                 <td>
                                     @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
@@ -90,6 +93,7 @@
                                     </a>
                                 </td>
                             </tr>
+                            stt++;
                         }
                     </tbody>
                 </table>

@@ -9,7 +9,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
 {
     public class RestaurantController : Controller
     {
-        BookingHotel1Entities3 _db = new BookingHotel1Entities3();
+        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
 
         // GET: Menu
         public ActionResult Restaurant()

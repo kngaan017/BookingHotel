@@ -569,3 +569,7 @@ C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\Qua
 C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\obj\Debug\QuanLyDatPhongKhachSan.pdb
 C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.dll
 C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.pdb
+C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.dll
+C:\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\CKFinder.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\ADMIN\OneDrive\Máy tính\.NET\BookingHotel\QuanLyDatPhongKhachSan\QuanLyDatPhongKhachSan\bin\Microsoft.AspNet.Identity.Core.xml

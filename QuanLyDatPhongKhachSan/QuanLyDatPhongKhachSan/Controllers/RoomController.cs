@@ -1,5 +1,6 @@
 ﻿using QuanLyDatPhongKhachSan.Models;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
     public class RoomController : Controller
     {
 
-        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
+        BookingHotel1Entities _db = new BookingHotel1Entities();
 
         // GET: Room
         public ActionResult RoomDetail(long id)
@@ -114,6 +115,36 @@ namespace QuanLyDatPhongKhachSan.Controllers
             _db.SaveChanges();
 
             return Json(new { success = true });
+        }
+
+        public class SearchViewModel
+        {
+            public List<QuanLyDatPhongKhachSan.Models.room> Rooms { get; set; }
+            public List<QuanLyDatPhongKhachSan.Models.room> searchList { get; set; }
+        }
+
+        public ActionResult Search(string roomType, string max, string bed, string size, string view, int? minPrice, int? maxPrice, string search)
+        {
+            var searchResults = _db.rooms.Where(r =>
+                (string.IsNullOrEmpty(roomType) || r.type == roomType) &&
+                (string.IsNullOrEmpty(max) || r.max == max) &&
+                (string.IsNullOrEmpty(bed) || r.bed.ToString() == bed) &&
+                (string.IsNullOrEmpty(size) || r.size == size) &&
+                (string.IsNullOrEmpty(view) || r.view == view) &&
+                (!minPrice.HasValue || r.price >= minPrice.Value) &&
+                (!maxPrice.HasValue || r.price <= maxPrice.Value) &&
+                (string.IsNullOrEmpty(search) || r.type.Contains(search) || r.price.ToString().Contains(search) || r.size.Contains(search) || r.description.Contains(search) || r.bed.ToString().Contains(search) || r.view.Contains(search) || r.max.Contains(search))
+            ).ToList();
+
+            var rooms = _db.rooms.ToList();
+
+            var viewModel = new SearchViewModel
+            {
+                searchList = searchResults,
+                Rooms = rooms
+            };
+
+            return View("Search", viewModel);
         }
 
     }

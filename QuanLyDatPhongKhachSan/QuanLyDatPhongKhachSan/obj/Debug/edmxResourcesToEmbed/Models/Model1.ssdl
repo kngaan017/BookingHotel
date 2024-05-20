@@ -113,6 +113,8 @@
     <Property Name="hide" Type="bit" />
     <Property Name="order" Type="int" />
     <Property Name="datebegin" Type="smalldatetime" />
+    <Property Name="fullname" Type="nvarchar(max)" />
+    <Property Name="phonenumber" Type="varchar" MaxLength="10" />
   </EntityType>
   <Association Name="FK_blogs_users">
     <End Role="users" Type="Self.users" Multiplicity="1" />

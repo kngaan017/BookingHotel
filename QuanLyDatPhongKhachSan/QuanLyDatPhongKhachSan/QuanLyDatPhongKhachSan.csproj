@@ -3330,6 +3330,11 @@
     <Content Include="Areas\Admin\Content\ckfinder\userfiles\.htaccess" />
     <Content Include="Content\images\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_MyLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -3337,11 +3342,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Menu\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3371,6 +3371,8 @@
     <Content Include="Scripts\js\scrollax.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Account\History.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Views\Account\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -3397,6 +3399,8 @@
     <Content Include="Views\Default\getBlog.cshtml" />
     <Content Include="Views\Room\Booking.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Room\Search.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,194 @@
+﻿@model QuanLyDatPhongKhachSan.Controllers.RoomController.SearchViewModel
+
+@{
+    ViewBag.Title = "Deluxe - Rooms";
+}
+
+<title>@ViewBag.Title</title>
+<style>
+    option[value=""][disabled] {
+        display: none;
+    }
+</style>
+<div class="hero-wrap" style="background-image: url('../Content/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                <div class="text">
+                    <p class="breadcrumbs mb-2"><span class="mr-2"><a href="../Home/Index">Home</a></span></p>
+                    <h1 class="mb-4 bread">Rooms</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    @if (Model.searchList.Count == 0)
+                    {
+                        <h5>No results found.</h5>
+                    }
+                    else
+                    {
+                        foreach (var i in Model.searchList)
+                        {
+                            <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                                <div class="room">
+                                    <a href="/@ViewBag.meta/@i.meta/@i.roomID" class="img d-flex justify-content-center align-items-center" style="background-image: url(/Areas/Admin/Content/upload/img/room/@i.img1);">
+                                        <div class="icon d-flex justify-content-center align-items-center">
+                                            <span class="icon-search2"></span>
+                                        </div>
+                                    </a>
+                                    <div class="text p-3 text-center">
+                                        <h3 class="mb-3"><a href="#">@i.type Room</a></h3>
+                                        <p>
+                                            <span class="price mr-2">@i.price<span class="currency">$</span></span>
+                                            <span class="per">per night</span>
+                                        </p>
+                                        <ul class="list">
+                                            <li><span>View: </span>@i.view</li>
+                                            <li><span>Size: </span>@i.size</li>
+                                            <li><span>Bed: </span>@i.bed</li>
+                                            <li><span>Max: </span>@i.max</li>
+                                            <li><span>Available: </span>@i.available</li>
+                                        </ul>
+                                        <hr>
+                                        @if (Session["IsLoggedIn"] != null && (bool)Session["IsLoggedIn"] == true)
+                                        {
+                                            <p class="pt-1"><a href="@Url.Action("Booking", "Room", new { id = i.roomID })" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="pt-1"><a href="@Url.Action("Login", "Account")" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar">
+                <div class="sidebar-wrap bg-light ftco-animate">
+                    <h3 class="heading mb-4">Advanced Search</h3>
+                    <form action="@Url.Action("Search", "Room")" method="get">
+                        <div class="fields">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="search" name="search" placeholder="Search...">
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="roomType" id="" class="form-control">
+                                        <option value="" disabled selected>Room Type</option>
+                                        @foreach (var room in Model.Rooms)
+                                        {
+                                            <option value="@room.type">@room.type</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="max" id="" class="form-control">
+                                        <option value="" disabled selected>Max</option>
+                                        @{
+                                            var distinctMaxValues = Model.Rooms.Select(r => r.max).Distinct();
+                                            foreach (var max in distinctMaxValues)
+                                            {
+                                                <option value="@max">@max</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="bed" id="" class="form-control">
+                                        <option value="" disabled selected>Bed</option>
+                                        @{
+                                            var distinctBedValues = Model.Rooms.Select(r => r.bed).Distinct();
+                                            foreach (var bed in distinctBedValues)
+                                            {
+                                                <option value="@bed">@bed</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="size" id="" class="form-control">
+                                        <option value="" disabled selected>Size</option>
+                                        @{
+                                            var distinctSizeValues = Model.Rooms.Select(r => r.size).Distinct();
+                                            foreach (var size in distinctSizeValues)
+                                            {
+                                                <option value="@size">@size</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="view" id="" class="form-control">
+                                        <option value="" disabled selected>View</option>
+                                        @{
+                                            var distinctViewValues = Model.Rooms.Select(r => r.view).Distinct();
+                                            foreach (var view in distinctViewValues)
+                                            {
+                                                <option value="@view">@view</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="range-slider">
+                                    <span>
+                                        <input id="minPrice" name="minPrice" type="number" value="100" min="100" max="1000" />
+                                        -
+                                        <input id="maxPrice" name="maxPrice" type="number" value="1000" min="100" max="1000" />
+                                    </span>
+                                    <input id="rangeMin" value="100" min="100" max="1000" step="1" type="range" />
+                                    <input id="rangeMax" value="1000" min="100" max="1000" step="1" type="range" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const rangeMin = document.getElementById('rangeMin');
+    const rangeMax = document.getElementById('rangeMax');
+    const minValueInput = document.getElementById('minPrice');
+    const maxValueInput = document.getElementById('maxPrice');
+
+    rangeMin.addEventListener('input', function () {
+        minValueInput.value = rangeMin.value;
+        rangeMax.min = rangeMin.value;
+    });
+
+    rangeMax.addEventListener('input', function () {
+        maxValueInput.value = rangeMax.value;
+        rangeMin.max = rangeMax.value;
+    });
+</script>

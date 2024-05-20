@@ -39,13 +39,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form action="#" class="booking-form">
+                <form action="@Url.Action("checkAvailability", "Home")" method="get" class="booking-form">
                     <div class="row">
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Check-in Date</label>
-                                    <input type="text" class="form-control checkin_date" placeholder="Check-in date">
+                                    <input name="checkInDate" type="text" class="form-control checkin_date" placeholder="Check-in date">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                 <div class="wrap">
                                     <label for="#">Check-out Date</label>
-                                    <input type="text" class="form-control checkout_date" placeholder="Check-out date">
+                                    <input name="checkOutDate" type="text" class="form-control checkout_date" placeholder="Check-out date">
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
+                                            <select name="type" id="" class="form-control">
                                                 @foreach (var room in Model)
                                                 {
                                                     <option value="@room.type">@room.type</option>
@@ -82,7 +82,7 @@
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control">
+                                            <select name="max" id="" class="form-control">
                                                 @{
                                                     var distinctMaxValues = Model.Select(r => r.max).Distinct();
                                                     foreach (var max in distinctMaxValues)

@@ -1,124 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BookingHotel1ModelStoreContainer" CdmEntityContainer="BookingHotel1Entities5">
+  <EntityContainerMapping StorageEntityContainer="BookingHotel1ModelStoreContainer" CdmEntityContainer="BookingHotel1Entities">
     <EntitySetMapping Name="blogs">
       <EntityTypeMapping TypeName="BookingHotel1Model.blog">
         <MappingFragment StoreEntitySet="blogs">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="publishDate" ColumnName="publishDate" />
-          <ScalarProperty Name="img" ColumnName="img" />
-          <ScalarProperty Name="tag" ColumnName="tag" />
-          <ScalarProperty Name="content" ColumnName="content" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="blogID" ColumnName="blogID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="publishDate" ColumnName="publishDate" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="bookings">
       <EntityTypeMapping TypeName="BookingHotel1Model.booking">
         <MappingFragment StoreEntitySet="bookings">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="requests" ColumnName="requests" />
-          <ScalarProperty Name="surcharge" ColumnName="surcharge" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="total" ColumnName="total" />
-          <ScalarProperty Name="numberOfGuest" ColumnName="numberOfGuest" />
-          <ScalarProperty Name="endDate" ColumnName="endDate" />
-          <ScalarProperty Name="startDate" ColumnName="startDate" />
-          <ScalarProperty Name="roomID" ColumnName="roomID" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="roomID" ColumnName="roomID" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="numberOfGuest" ColumnName="numberOfGuest" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="surcharge" ColumnName="surcharge" />
+          <ScalarProperty Name="requests" ColumnName="requests" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="menus">
       <EntityTypeMapping TypeName="BookingHotel1Model.menu">
         <MappingFragment StoreEntitySet="menu">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="link" ColumnName="link" />
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="restaurants">
       <EntityTypeMapping TypeName="BookingHotel1Model.restaurant">
         <MappingFragment StoreEntitySet="restaurant">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="img" ColumnName="img" />
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="reviews">
       <EntityTypeMapping TypeName="BookingHotel1Model.review">
         <MappingFragment StoreEntitySet="reviews">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
-          <ScalarProperty Name="comment" ColumnName="comment" />
-          <ScalarProperty Name="rating" ColumnName="rating" />
-          <ScalarProperty Name="roomID" ColumnName="roomID" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="roomID" ColumnName="roomID" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="rooms">
       <EntityTypeMapping TypeName="BookingHotel1Model.room">
         <MappingFragment StoreEntitySet="rooms">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="max" ColumnName="max" />
-          <ScalarProperty Name="available" ColumnName="available" />
-          <ScalarProperty Name="bed" ColumnName="bed" />
-          <ScalarProperty Name="view" ColumnName="view" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="img3" ColumnName="img3" />
-          <ScalarProperty Name="img2" ColumnName="img2" />
-          <ScalarProperty Name="img1" ColumnName="img1" />
-          <ScalarProperty Name="size" ColumnName="size" />
-          <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="roomID" ColumnName="roomID" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="size" ColumnName="size" />
+          <ScalarProperty Name="img1" ColumnName="img1" />
+          <ScalarProperty Name="img2" ColumnName="img2" />
+          <ScalarProperty Name="img3" ColumnName="img3" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="view" ColumnName="view" />
+          <ScalarProperty Name="bed" ColumnName="bed" />
+          <ScalarProperty Name="available" ColumnName="available" />
+          <ScalarProperty Name="max" ColumnName="max" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="BookingHotel1Model.user">
         <MappingFragment StoreEntitySet="users">
-          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-          <ScalarProperty Name="order" ColumnName="order" />
-          <ScalarProperty Name="hide" ColumnName="hide" />
-          <ScalarProperty Name="meta" ColumnName="meta" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="role" ColumnName="role" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

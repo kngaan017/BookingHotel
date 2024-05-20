@@ -6,13 +6,14 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace QuanLyDatPhongKhachSan.Controllers
 {
     public class AccountController : Controller
     {
-        BookingHotel1Entities5 _db = new BookingHotel1Entities5();
+        BookingHotel1Entities _db = new BookingHotel1Entities();
 
         // GET: Account
         [HttpGet]
@@ -76,7 +77,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
             }
         }
 
-        
+
         public ActionResult Logout()
         {
             Session.Clear(); // Clear all session variables
@@ -127,6 +128,67 @@ namespace QuanLyDatPhongKhachSan.Controllers
                 byte2String += targetData[i].ToString();
             }
             return byte2String;
+        }
+
+        public ActionResult Profile()
+        {
+            int userID = (int)Session["UserID"];
+            var profile = _db.users.Where(r => r.userID == userID).FirstOrDefault();
+            return View(profile);
+        }
+
+        public ActionResult EditProfile()
+        {
+            int userID = (int)Session["UserID"];
+            var user = _db.users.Where(r => r.userID == userID).FirstOrDefault();
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(string username, string email, string fullname, string phonenumber)
+        {
+            if (ModelState.IsValid)
+            {
+                int userID = (int)Session["UserID"];
+                var user = _db.users.Where(r => r.userID == userID).FirstOrDefault();
+                user.username= username;
+                user.fullname= fullname;
+                user.phonenumber= phonenumber;
+                user.email= email;
+                _db.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            int userID = (int)Session["UserID"];
+            var user = _db.users.FirstOrDefault(s => s.userID.Equals(userID));
+            if (user.password.Equals(GetMD5(currentPassword)) && newPassword.Equals(confirmPassword))
+            {
+                user.password = GetMD5(newPassword);
+                _db.SaveChanges();
+                TempData["SuccessMessage"] = "Updated password successfully";
+                return RedirectToAction("ChangePassword");
+            }
+            else if (!newPassword.Equals(confirmPassword))
+            {
+                TempData["ErrorMessage"] = "New password and confirm password do not match";
+                return RedirectToAction("ChangePassword");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Current password is incorrect";
+                return RedirectToAction("ChangePassword");
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace QuanLyDatPhongKhachSan.Areas.Admin.Controllers
 {
     public class BookingsController : Controller
     {
-        private BookingHotel1Entities5 db = new BookingHotel1Entities5();
+        private BookingHotel1Entities db = new BookingHotel1Entities();
 
         // GET: Admin/Bookings
         public ActionResult Index()

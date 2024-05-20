@@ -9,7 +9,7 @@ namespace QuanLyDatPhongKhachSan.Help
     {
         public List<string> GetAvailableBlogs()
         {
-            using (var db = new BookingHotel1Entities5())
+            using (var db = new BookingHotel1Entities())
             {
                 var blogs = db.blogs.Select(r => r.tag).Distinct().ToList();
                 var validBlogs = blogs.Where(b => b != null).ToList();

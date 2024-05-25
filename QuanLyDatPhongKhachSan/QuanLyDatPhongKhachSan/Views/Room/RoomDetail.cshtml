@@ -2,8 +2,43 @@
 
 @{
     ViewBag.Title = "RoomDetail";
+    var room = ViewBag.Room as QuanLyDatPhongKhachSan.Models.room;
+    var availableRooms = ViewBag.AvailableRooms as List<QuanLyDatPhongKhachSan.Models.room>;
 }
 
+<style>
+    .review {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        height: 150px; /* Thiết lập chiều cao cố định */
+        overflow: hidden; /* Ẩn nội dung dư thừa nếu có */
+    }
+
+    .stars {
+        color: #ffd700; /* Màu của sao đầy */
+    }
+
+    .star {
+        font-size: 20px;
+    }
+
+    .user-info {
+        margin-top: 10px;
+    }
+
+    .username {
+        font-weight: bold;
+    }
+
+    .timestamp {
+        color: #666;
+    }
+
+    .comment {
+        margin-top: 10px;
+    }
+</style>
 <title>@ViewBag.Title</title>
 <div class="hero-wrap" style="background-image: url('../Content/images/bg_1.jpg');">
     <div class="overlay"></div>
@@ -26,111 +61,71 @@
             <div class="col-lg-10 mx-auto">
                 <div class="row">
                     <div class="col-md-12 ftco-animate">
-                        <h2 class="mb-4">@Model.type Room</h2>
+                        <h2 class="mb-4">@room.type Room</h2>
                         <div class="single-slider owl-carousel">
                             <div class="item">
-                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@Model.img1);"></div>
+                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@room.img1);"></div>
                             </div>
                             <div class="item">
-                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@Model.img2);"></div>
+                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@room.img2);"></div>
                             </div>
                             <div class="item">
-                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@Model.img3);"></div>
+                                <div class="room-img" style="background-image: url(/Areas/Admin/Content/upload/img/room/@room.img3);"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 room-single mt-4 mb-5 ftco-animate">
+                        <h3>Price: $@room.price</h3>
+                        <p>@room.description</p>
                         <div class="d-md-flex mt-5 mb-5">
                             <ul class="list">
-                                <li><span>Max: </span> @Model.max</li>
-                                <li><span>Size: </span>@Model.size</li>
-                                <li><span>Available: </span>@Model.available</li>
+                                <li><span>Max: </span> @room.max</li>
+                                <li><span>Size: </span>@room.size</li>
+                                <li><span>Available: </span>@room.available</li>
                             </ul>
                             <ul class="list ml-md-5">
-                                <li><span>View: </span>@Model.view</li>
-                                <li><span>Bed: </span>@Model.bed</li>
+                                <li><span>View: </span>@room.view</li>
+                                <li><span>Bed: </span>@room.bed</li>
                             </ul>
                         </div>
                         <hr>
-                        <h3>Price: @Model.price $</h3>
-                        <p>@Model.description</p>
-                    </div>
-                   
-                    <div class="col-md-12 properties-single ftco-animate mb-5 mt-4">
-                        <h4 class="mb-4">Review &amp; Ratings</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form method="post" class="star-rating">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i> 100 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i> 30 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 5 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 0 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 0 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 room-single ftco-animate mb-5 mt-5">
-                        <h4 class="mb-4">Available Room</h4>
-                        <div class="row">
-                            <div class="col-sm col-md-6 ftco-animate">
-                                <div class="room">
-                                    <a href="../Home/Rooms" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/room-1.jpg);">
-                                        <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div>
-                                    </a>
-                                    <div class="text p-3 text-center">
-                                        <h3 class="mb-3"><a href="../Home/Rooms">Suite Room</a></h3>
-                                        <p><span class="price mr-2">$120.00</span> <span class="per">per night</span></p>
-                                        <hr>
-                                        <p class="pt-1"><a href="../Room/RoomDetail" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm col-md-6 ftco-animate">
-                                <div class="room">
-                                    <a href="../Home/Rooms" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(../Content/images/room-2.jpg);">
-                                        <div class="icon d-flex justify-content-center align-items-center">
-                                            <span class="icon-search2"></span>
-                                        </div>
-                                    </a>
-                                    <div class="text p-3 text-center">
-                                        <h3 class="mb-3"><a href="../Home/Rooms">Family Room</a></h3>
-                                        <p><span class="price mr-2">$20.00</span> <span class="per">per night</span></p>
-                                        <hr>
-                                        <p class="pt-1"><a href="../Room/RoomDetail" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-end">
+                            <a href="@Url.Action("Booking", "Room", new { id = room.roomID })" class="btn btn-primary py-3 px-5 btn-custom">
+                                <span>Book Now</span>
+                                <span class="icon-long-arrow-right"></span>
+                            </a>
                         </div>
                     </div>
 
+                    <div class="col-md-12 properties-single ftco-animate mb-5 mt-4">
+                        <h4 class="mb-4">Review &amp; Ratings</h4>
+                        <div class="row">
+                            @{Html.RenderAction("getReview", "Default", new { roomID = room.roomID });}
+                        </div>
+                    </div>
+                    <div class="col-md-12 room-single ftco-animate mb-5 mt-5">
+                        <h4 class="mb-4">Available Rooms</h4>
+                        <div class="row">
+                            @foreach (var availableRoom in availableRooms)
+                            {
+                                <div class="col-sm col-md-6 ftco-animate">
+                                    <div class="room">
+                                        <a href="@Url.Action("RoomDetail", "Room", new { id = availableRoom.roomID })" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(@Url.Content("~/Content/images/" + availableRoom.img1));">
+                                            <div class="icon d-flex justify-content-center align-items-center">
+                                                <span class="icon-search2"></span>
+                                            </div>
+                                        </a>
+                                        <div class="text p-3 text-center">
+                                            <h3 class="mb-3"><a href="@Url.Action("RoomDetail", "Room", new { id = availableRoom.roomID })">@availableRoom.type Room</a></h3>
+                                            <p><span class="price mr-2">$@availableRoom.price</span> <span class="per">per night</span></p>
+                                            <hr>
+                                            <p class="pt-1"><a href="@Url.Action("RoomDetail", "Room", new { id = availableRoom.roomID })" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div> <!-- .col-md-8 -->
         </div>

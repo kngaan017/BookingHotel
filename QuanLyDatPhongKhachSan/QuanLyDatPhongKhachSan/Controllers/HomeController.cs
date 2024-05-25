@@ -17,7 +17,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
         public ActionResult Index()
         {
             ViewBag.meta = "phong-o";
-            var rooms = _db.rooms.ToList();
+            var rooms = _db.rooms.Where(t => t.hide == true).ToList();
             return View(rooms);
         }
 

@@ -27,7 +27,7 @@
                         <input type="hidden" id="selectedBedValue" value="" />
                         <!-- Phần tử Chọn số giường -->
                         <label for="bedsFilter">Chọn số giường:</label>
-                        <select id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
+                        <select style="width: 60%" id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
                             <option value="">Tất cả</option>
                             @foreach (var bed in ViewBag.MaxValues)
                             {
@@ -73,7 +73,7 @@
                                     <img src="~/Areas/Admin/Content/upload/img/room/@item.img1" width="50px" height="50px" />
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.price)
+                                    $@Html.DisplayFor(modelItem => item.price)
                                 </td>
 
                                 <td>

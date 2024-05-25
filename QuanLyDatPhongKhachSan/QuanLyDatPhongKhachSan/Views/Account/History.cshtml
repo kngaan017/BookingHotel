@@ -4,7 +4,46 @@
 @{
     ViewBag.Title = "History";
 }
+<style>
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+    }
 
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url("star-empty.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        color: #ccc;
+    }
+
+    .rating label:before {
+        content: "\2605";
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+        color: #ffd700;
+    }
+
+    .fixed-height-section {
+        height: 400px; 
+        overflow-y: auto; 
+    }
+</style>
 
 <title>@ViewBag.Title</title>
 <div class="hero-wrap" style="background-image: url('../Content/images/bg_1.jpg');">
@@ -20,12 +59,33 @@
         </div>
     </div>
 </div>
+@if (TempData["SuccessMessage"] != null && !string.IsNullOrEmpty(TempData["SuccessMessage"].ToString()))
+{
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            toastr.options.positionClass = 'toast-top-right';
+            toastr.success('@TempData["SuccessMessage"]');
+        });
+    </script>
+}
+else if (TempData["ErrorMessage"] != null && !string.IsNullOrEmpty(TempData["ErrorMessage"].ToString()))
+{
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            toastr.options.positionClass = 'toast-top-right';
+            toastr.error('@TempData["ErrorMessage"]');
+        });
+    </script>
+}
+
+
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
+
             @if (Model.Any())
             {
-                <div class="col-lg">
+                <div class="col-lg ">
                     <div class="row">
                         @foreach (var i in Model)
                         {
@@ -33,9 +93,11 @@
                                 <div class="room">
                                     <a class="img d-flex justify-content-center align-items-center" style="background-image: url(/Areas/Admin/Content/upload/img/room/@i.room.img1);">
                                     </a>
-                                    <div class="text p-3 text-center">
+                                    <div class="text p-3 text-center fixed-height-section">
                                         <h3 class="mb-3">@i.room.type</h3>
-
+                                        @{
+                                            var today = DateTime.Now;
+                                        }
                                         <ul class="list">
                                             <li class="text-left"><span>Start date: </span>@(i.startDate.HasValue ? i.startDate.Value.ToString("MM/dd/yyyy") : "")</li>
                                             <li class="text-left"><span>End date: </span>@(i.endDate.HasValue ? i.endDate.Value.ToString("MM/dd/yyyy") : "")</li>
@@ -70,6 +132,15 @@
                                                     <button class="btn btn-danger cancel-btn" data-id="@i.bookingID" data-room-id="@i.roomID">Cancel</button>
                                                 </li>
                                             }
+                                            else
+                                            {
+                                                if (i.startDate.HasValue && i.startDate.Value.Date <= today.Date)
+                                                {
+                                                    <li class="text-right">
+                                                        <button class="btn btn-success review-btn" data-id="@i.userID" data-room-id="@i.roomID" data-toggle="modal" data-target="#reviewModal">Review</button>
+                                                    </li>
+                                                }
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -87,6 +158,43 @@
         </div>
     </div>
 </section>
+    <!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm" method="post" action="@Url.Action("Review", "Room")">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="roomID" name="RoomID" />
+                    <input type="hidden" id="userID" name="UserID" />
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <div class="rating">
+                            <input type="radio" name="star" id="star1" value="5"><label for="star1"></label>
+                            <input type="radio" name="star" id="star2" value="4"><label for="star2"></label>
+                            <input type="radio" name="star" id="star3" value="3"><label for="star3"></label>
+                            <input type="radio" name="star" id="star4" value="2"><label for="star4"></label>
+                            <input type="radio" name="star" id="star5" value="1"><label for="star5"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                    </div>
+                    <p class="text-right">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -107,6 +215,9 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.cancel-btn').click(function () {
@@ -119,10 +230,7 @@
                 $.post('/Room/CancelBooking', { bookingId: bookingId, roomId: roomId })
                     .done(function (response) {
                         if (response.success) {
-                            alert('Booking canceled successfully.');
                             location.reload();
-                        } else {
-                            alert('Failed to cancel the booking.');
                         }
                     })
                     .fail(function () {
@@ -131,5 +239,18 @@
             });
         });
     });
+    $(document).ready(function () {
+        $('#reviewModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var roomId = button.data('room-id');
+            var userId = button.data('id');
+
+            var modal = $(this);
+            modal.find('#roomID').val(roomId);
+            modal.find('#userID').val(userId);
+        });
+    });
+
+
 </script>
 

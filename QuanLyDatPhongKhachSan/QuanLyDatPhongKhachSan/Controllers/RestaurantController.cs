@@ -14,7 +14,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
         // GET: Menu
         public ActionResult Restaurant()
         {
-            var food = _db.restaurants.ToList();
+            var food = _db.restaurants.Where(t => t.hide == true).ToList();
             return View(food);
         }
     }

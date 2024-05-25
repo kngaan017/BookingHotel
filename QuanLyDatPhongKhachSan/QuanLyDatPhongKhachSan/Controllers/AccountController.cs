@@ -156,8 +156,10 @@ namespace QuanLyDatPhongKhachSan.Controllers
                 user.phonenumber= phonenumber;
                 user.email= email;
                 _db.SaveChanges();
-                return RedirectToAction("Profile");
+                TempData["SuccessMessage"] = "Your information updated successfully.";
+                return RedirectToAction("EditProfile");
             }
+            TempData["ErrorMessage"] = "Error";
             return View();
         }
 

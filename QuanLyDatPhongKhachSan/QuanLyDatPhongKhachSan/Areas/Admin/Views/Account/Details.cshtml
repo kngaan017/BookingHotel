@@ -82,6 +82,23 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.Label("Email", htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.email)" readonly>
+
+            </div>
+            <div class="col-md-2 text-right align-self-center">
+                <strong>@Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label" })</strong>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="@Html.DisplayFor(model => model.datebegin)" readonly>
+            </div>
+        </div>
+    </div>
 
     <div class="container col-lg-10 mb-3">
         <div class="text-right">

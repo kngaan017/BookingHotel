@@ -19,7 +19,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
         public ActionResult BlogDetail(long id)
         {
             var v = from t in _db.blogs
-                    where t.blogID == id
+                    where t.blogID == id && t.hide == true
                     select t;
             return View(v.FirstOrDefault());
         }

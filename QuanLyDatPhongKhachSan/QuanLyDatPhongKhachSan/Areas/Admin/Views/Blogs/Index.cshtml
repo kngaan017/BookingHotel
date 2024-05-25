@@ -26,7 +26,7 @@
                         <input type="hidden" id="selectedBedValue" value="" />
                         <!-- Phần tử Chọn số giường -->
                         <label for="bedsFilter">Chọn tag:</label>
-                        <select id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
+                        <select style="width: 60%" id="bedsFilter" class="form-control custom-select" onchange="filterRooms(); setSelectedBed()">
                             <option value="">Tất cả</option>
                             @foreach (var tag in ViewBag.MaxValues)
                             {
@@ -49,7 +49,6 @@
                             <th>Image</th>
                             <th>Tag</th>
                             <th>Publish Date</th>
-                            <th>Meta</th>
                             <th>Hide</th>
                             <th>Action</th>
                         </tr>
@@ -83,9 +82,7 @@
                                 <td>
                                     @(item.publishDate.HasValue ? item.publishDate.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.meta)
-                                </td>
+                                
                                 <td>
                                     @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>

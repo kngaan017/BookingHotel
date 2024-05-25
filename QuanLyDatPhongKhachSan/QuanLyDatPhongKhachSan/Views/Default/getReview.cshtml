@@ -1,0 +1,27 @@
+﻿@model List<QuanLyDatPhongKhachSan.Models.review>
+@foreach (var i in Model)
+{
+    <div class="col-md-6">
+        <div class="review">
+            <div class="stars">
+                @for (int j = 0; j < i.rating; j++)
+                {
+                    <span class="star">&#9733;</span>
+                }
+                @for (int j = 0; j < 5 - i.rating; j++)
+                {
+                    <span class="star">&#9734;</span>
+                }
+            </div>
+
+            <div class="user-info">
+                <span class="username">@i.user.username</span>
+                <span class="timestamp">@i.reviewDate</span>
+            </div>
+            <div class="comment">
+                <p>@i.comment</p>
+            </div>
+        </div>
+    </div>
+}
+

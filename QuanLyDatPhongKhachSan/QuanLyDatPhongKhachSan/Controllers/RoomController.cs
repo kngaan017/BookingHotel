@@ -1,4 +1,5 @@
-﻿using QuanLyDatPhongKhachSan.Models;
+﻿using Microsoft.AspNet.Identity;
+using QuanLyDatPhongKhachSan.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,25 +18,47 @@ namespace QuanLyDatPhongKhachSan.Controllers
         // GET: Room
         public ActionResult RoomDetail(long id)
         {
-            var v = from t in _db.rooms
-                    where t.roomID == id
-                    select t;
-            return View(v.FirstOrDefault());
+            var room = _db.rooms.FirstOrDefault(r => r.roomID == id && r.hide == true);
+            if (room == null)
+            {
+                return HttpNotFound();
+            }
+
+            var availableRooms = _db.rooms
+                                    .Where(r => r.hide == true && r.roomID != id && r.available > 0) 
+                                    .OrderBy(r => Guid.NewGuid())
+                                    .Take(2) 
+                                    .ToList();
+
+            ViewBag.Room = room;
+            ViewBag.AvailableRooms = availableRooms;
+
+            return View();
         }
         public ActionResult Rooms()
         {
             ViewBag.meta = "phong-o";
-            var rooms = _db.rooms.ToList();
+            var rooms = _db.rooms.Where(t => t.hide == true).ToList();
             return View(rooms);
         }
 
-
-        public ActionResult Booking(long id)
+        public ActionResult Booking(int id)
         {
-            var v = from t in _db.rooms
-                    where t.roomID == id
-                    select t;
-            return View(v.FirstOrDefault());
+            var room = _db.rooms.Find(id);
+            if (room == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userId = (int)Session["UserID"];
+            var user = _db.users.Find(userId);
+
+            ViewBag.Fullname = user?.fullname;
+            ViewBag.Email = user?.email;
+            ViewBag.Phone = user?.phonenumber;
+            ViewBag.Room = room;
+
+            return View(room);
         }
 
         [HttpPost]
@@ -57,7 +80,11 @@ namespace QuanLyDatPhongKhachSan.Controllers
                 int numberOfNights = duration.Days;
                 float total = float.Parse(form["price"]) * numberOfNights;
                 int adults = int.Parse(form["adults"]);
-                int children = int.Parse(form["children"]);
+                int children;
+                if (!int.TryParse(form["children"], out children))
+                {
+                    children = 0; 
+                }
                 int roomID = int.Parse(form["roomID"]);
                 bool surcharge = form["buffet"] == "yes";
 
@@ -85,15 +112,58 @@ namespace QuanLyDatPhongKhachSan.Controllers
                     room.available -= 1;
                     _db.SaveChanges();
                 }
-
-                return RedirectToAction("Index", "Home");
+                TempData["SuccessMessage"] = "You have successfully booked your room.";
+                return RedirectToAction("History", "Account");
             }
             else
             {
+                TempData["ErrorMessage"] = "An error occurred while processing your rating. Please try again.";
                 return RedirectToAction("Login", "Account");
 
             }
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Review(FormCollection form)
+        {
+            int userID = (int)Session["UserID"];
+            int roomID;
+            int rating;
+            string comment;
+
+            if (Session["UserID"] != null &&
+                form["RoomID"] != null &&
+                form["star"] != null &&
+                form["Comment"] != null &&
+                int.TryParse(form["RoomID"], out roomID) &&
+                int.TryParse(form["star"], out rating))
+            {
+                comment = form["Comment"];
+
+                var review = new review
+                {
+                    userID = userID,
+                    roomID = roomID,
+                    rating = rating,
+                    comment = comment,
+                    reviewDate = DateTime.Now,
+                    datebegin = DateTime.Now,
+                    order = 1,
+                    hide = true
+                };
+
+                _db.reviews.Add(review);
+                _db.SaveChanges();
+                TempData["SuccessMessage"] = "You have successfully rated!";
+                return RedirectToAction("History", "Account");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "An error occurred while processing your rating. Please try again.";
+                return RedirectToAction("History", "Account");
+            }
         }
 
         [HttpPost]
@@ -113,7 +183,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
 
             _db.bookings.Remove(booking);
             _db.SaveChanges();
-
+            TempData["SuccessMessage"] = "Booking successfully cancelled.";
             return Json(new { success = true });
         }
 
@@ -143,7 +213,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
                 searchList = searchResults,
                 Rooms = rooms
             };
-
+            ViewBag.meta = "phong-o";
             return View("Search", viewModel);
         }
 

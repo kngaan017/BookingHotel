@@ -18,6 +18,25 @@
         </div>
     </div>
 </div>
+@if (TempData["SuccessMessage"] != null && !string.IsNullOrEmpty(TempData["SuccessMessage"].ToString()))
+{
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            toastr.options.positionClass = 'toast-top-right';
+            toastr.success('@TempData["SuccessMessage"]');
+        });
+    </script>
+}
+else if (TempData["ErrorMessage"] != null && !string.IsNullOrEmpty(TempData["ErrorMessage"].ToString()))
+{
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            toastr.options.positionClass = 'toast-top-right';
+            toastr.error('@TempData["ErrorMessage"]');
+        });
+    </script>
+}
+
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="col-lg-9">
@@ -45,7 +64,7 @@
                         <label>Phone number:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="phonenumber" class="form-control" value="@Model.phonenumber", minlength="10", required>
+                        <input type="text" name="phonenumber" class="form-control" value="@Model.phonenumber" , minlength="10" , required>
                         @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -65,3 +84,7 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

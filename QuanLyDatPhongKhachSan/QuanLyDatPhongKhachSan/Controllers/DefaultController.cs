@@ -16,6 +16,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
         {
             ViewBag.meta = "phong-o";
             var v = from t in _db.rooms
+                    where t.hide == true
                     orderby t.order ascending
                     select t;
             return PartialView(v.ToList());
@@ -25,10 +26,22 @@ namespace QuanLyDatPhongKhachSan.Controllers
         {
             ViewBag.meta = "blog";
             var v = from t in _db.blogs
+                    where t.hide == true
                     orderby t.order ascending
                     select t;
             return PartialView(v.ToList());
         }
+
+        public ActionResult getReview(int roomID)
+        {
+            ViewBag.meta = "review";
+            var v = from t in _db.reviews
+                    where t.roomID == roomID && t.hide == true
+                    orderby t.order ascending
+                    select t;
+            return PartialView(v.ToList());
+        }
+
         // GET: Default
         public ActionResult Index()
         {

@@ -24,6 +24,13 @@
                     @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
                 </div>
+                <div class="col-md-2 text-right align-self-center">
+                    <strong>@Html.Label("Username", htmlAttributes: new { @class = "control-label" })</strong>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.user.username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.user.username, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
        

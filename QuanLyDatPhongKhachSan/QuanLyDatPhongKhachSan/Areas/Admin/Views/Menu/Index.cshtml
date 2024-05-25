@@ -51,14 +51,14 @@
                                     @Html.DisplayFor(modelItem => item.meta)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.hide)
+                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
 
                                 <td>
-                                    @(item.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
+                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
                                 </td>
 
                                 <td>

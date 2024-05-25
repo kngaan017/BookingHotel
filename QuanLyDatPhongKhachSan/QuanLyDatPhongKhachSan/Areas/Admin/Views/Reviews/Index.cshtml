@@ -30,13 +30,13 @@
                     <thead>
                         <tr>
                             <th>STT</th>
+                            <th>Room</th>
                             <th>Rating</th>
                             <th>Comment</th>
+                            <th>Username</th>
                             <th>reviewDate</th>
                             <th>Hide</th>
                             <th>Order</th>
-                            <th>Date Begin</th>
-                            <th>Username</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,6 +51,9 @@
                                     @stt
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.room.type)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.rating)
                                 </td>
                                 <td>
@@ -60,6 +63,9 @@
                                         string displayedTitle = title.Length > maxLength ? title.Substring(0, maxLength) + "..." : title;
                                     }
                                     @Html.DisplayFor(modelItem => displayedTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.user.username)
                                 </td>
                                 <td>
                                     @(item.reviewDate.HasValue ? item.reviewDate.Value.ToString("dd/MM/yyyy") : "")
@@ -72,12 +78,6 @@
                                     @Html.DisplayFor(modelItem => item.order)
                                 </td>
 
-                                <td>
-                                    @(item.datebegin.HasValue ? item.datebegin.Value.ToString("dd/MM/yyyy") : "")
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.user.username)
-                                </td>
                                 <td>
                                     <a href="@Url.Action("Edit","reviews",  new { id = item.reviewID })" class="btn btn-outline-dark">
                                         <i class='fas fa-pencil-alt'></i>

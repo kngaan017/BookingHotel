@@ -63,7 +63,7 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="lname">Full Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname" value="@ViewBag.Fullname"  required>
+                                <input type="text" class="form-control" id="lname" name="lname" value="@ViewBag.Fullname" required>
                             </div>
                         </div>
                     </div>
@@ -150,6 +150,7 @@
                     <h6>Booking duration: <span id="booking_duration"></span></h6>
                     <h6>Surcharge: <span id="surcharge"></span></h6>
                     <h6>Total amount: <span id="total_amount"></span></h6>
+                    <h6>Payment method: <span>Cash</span></h6>
                     <input type="hidden" name="roomID" value="@Model.roomID" />
                     <input type="hidden" name="price" value="@Model.price" />
 

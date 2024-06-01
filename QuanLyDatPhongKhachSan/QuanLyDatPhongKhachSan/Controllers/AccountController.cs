@@ -106,7 +106,7 @@ namespace QuanLyDatPhongKhachSan.Controllers
                     _db.Configuration.ValidateOnSaveEnabled = false;
                     _db.users.Add(user);
                     _db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
